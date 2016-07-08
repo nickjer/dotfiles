@@ -1,0 +1,4 @@
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-projectionist'
+Bundle 'octol/vim-cpp-enhanced-highlight'
+Bundle 'mustache/vim-mustache-handlebars'

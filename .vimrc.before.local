@@ -1,0 +1,2 @@
+" omit 'neocomplete'
+let g:spf13_bundle_groups=['general', 'writing', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
