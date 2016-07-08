@@ -30,3 +30,35 @@ My **personal** dotfiles used for my typical environment.
     mv dotfiles/* .
     rmdir dotfiles
     ```
+
+## Update
+
+### dotfiles
+
+```sh
+cd ~
+git pull
+```
+
+### spf13-vim
+
+```sh
+curl https://j.mp/spf13-vim3 -L -o - | sh
+```
+
+### bash_it
+
+```sh
+bash-it update
+```
+
+## Gotchas
+
+### bash_it
+
+If you add a new alias, completion, or plugin please add the symlink directly
+to this repo, e.g.:
+
+```sh
+git add -f .bash_it/aliases/enabled/<ALIAS>.aliases.bash
+```
