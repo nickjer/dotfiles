@@ -9,5 +9,5 @@ set tabstop=2                   " An indentation every two columns
 set softtabstop=2               " Let backspace delete indent
 
 " add clipboard write access for hterm in vim
-source ~/.osc52.vim
-vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>'"'))
+" source ~/.osc52.vim
+" vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>'"'))
