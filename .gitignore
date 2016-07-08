@@ -4,4 +4,5 @@
 # Whitelist some files
 !/.gitignore
 !README.md
+!/.bashrc
 !/.vimrc*.local
