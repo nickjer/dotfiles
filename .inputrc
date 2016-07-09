@@ -1,0 +1,16 @@
+## arrow up
+"\e[A":history-search-backward
+## arrow down
+"\e[B":history-search-forward
+## case-insensitive completion
+set completion-ignore-case on
+## make symlinks look better
+set mark-symlinked-directories on
+## show ambiguous tab completion files and return prompt
+set show-all-if-ambiguous on
+## tab through ambiguous files
+# TAB: menu-complete
+## use shift+tab to reverse
+"\e[Z": "\e-1\C-i"
+## Jump to the target folder of the last command and run ls with Option-x
+"\ex": 'cd !$ \015ls\015'
