@@ -4,40 +4,37 @@ My **personal** dotfiles used for my typical environment.
 
 ## Install
 
-1. Install https://github.com/spf13/spf13-vim
-
-    ```sh
-    sh <(curl https://j.mp/spf13-vim3 -L)
-    ```
-
-2. Install https://github.com/Bash-it/bash-it
+1. Install https://github.com/Bash-it/bash-it
 
     ```sh
     git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
     ```
 
-3. Git clone this repo
+2. Git clone this repo
 
     ```sh
-    git clone git@github.com:nickjer/dotfiles.git
+    git clone git@github.com:nickjer/dotfiles.git .dotfiles
     ```
 
-4. Move contents of repo into `$HOME`
+3. Move contents of repo into `$HOME`
 
     ```sh
-    # be sure to move hidden files as well
-    shopt -s dotglob
-    mv dotfiles/* .
-    rmdir dotfiles
+    .dotfiles/bootstrap.sh
     ```
+
+4. Install https://github.com/spf13/spf13-vim
+
+    ```sh
+    sh <(curl https://j.mp/spf13-vim3 -L)
+    ```
+
 
 ## Update
 
 ### dotfiles
 
 ```sh
-cd ~
-git pull
+~/.dotfiles/bootstrap.sh
 ```
 
 ### spf13-vim
@@ -50,15 +47,4 @@ curl https://j.mp/spf13-vim3 -L -o - | sh
 
 ```sh
 bash-it update
-```
-
-## Gotchas
-
-### bash_it
-
-If you add a new alias, completion, or plugin please add the symlink directly
-to this repo, e.g.:
-
-```sh
-git add -f .bash_it/aliases/enabled/<ALIAS>.aliases.bash
 ```
