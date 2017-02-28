@@ -29,7 +29,7 @@ prompt() {
   if [ ${EXIT} -ne 0 ]; then
     PS1="${red}┌─[${bold_white}${EXIT}${red}]${normal}[${bold_green}\u@\h${normal}][${bold_blue}\w${normal}]$(modern_scm_prompt)$(is_vim_shell)\n${red}└─▪${normal} "
   else
-    PS1="┌─[${bold_green}\u@\h${normal}][${bold_blue}\w${normal}]$(modern_scm_prompt)$(is_vim_shell)\n└─▪${normal} "
+    PS1="${normal}┌─[${bold_green}\u@\h${normal}][${bold_blue}\w${normal}]$(modern_scm_prompt)$(is_vim_shell)\n└─▪${normal} "
   fi
 }
 
