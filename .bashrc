@@ -30,6 +30,9 @@ export SCM_CHECK=true
 # https://github.com/djl/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
+# Set my editor
+export EDITOR=vim
+
 # Load Bash It
 source $BASH_IT/bash_it.sh
 
