@@ -50,3 +50,12 @@ vim +PlugUpgrade +PlugUpdate
 ```sh
 bash-it update
 ```
+
+## Ubuntu Setup
+
+If you are using Ubuntu as your local machine and want to replace Caps Lock
+with Esc:
+
+```sh
+dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
+```
