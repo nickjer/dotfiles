@@ -22,10 +22,12 @@ My **personal** dotfiles used for my typical environment.
     .dotfiles/bootstrap.sh
     ```
 
-4. Install https://github.com/spf13/spf13-vim
+4. Install https://github.com/junegunn/vim-plug
 
     ```sh
-    sh <(curl https://j.mp/spf13-vim3 -L)
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugInstall
     ```
 
 
@@ -37,10 +39,10 @@ My **personal** dotfiles used for my typical environment.
 ~/.dotfiles/bootstrap.sh
 ```
 
-### spf13-vim
+### vim-plug
 
 ```sh
-curl https://j.mp/spf13-vim3 -L -o - | sh
+vim +PlugUpgrade +PlugUpdate
 ```
 
 ### bash_it
