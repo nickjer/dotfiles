@@ -1,3 +1,5 @@
+## use vim mode
+set editing-mode vi
 ## arrow up
 "\e[A":history-search-backward
 ## arrow down
