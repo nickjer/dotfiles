@@ -143,7 +143,6 @@ set shell=/bin/bash
   Plug 'junegunn/fzf', { 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-  Plug 'rykka/riv.vim', { 'for': 'rst' }
   Plug 'othree/html5.vim', { 'for': 'html' }
   call plug#end()
 
@@ -199,11 +198,6 @@ set shell=/bin/bash
     vmap <Leader>a= :Tabularize /=<CR>
     nmap <Leader>a: :Tabularize /:\zs<CR>
     vmap <Leader>a: :Tabularize /:\zs<CR>
-  " }
-
-  " Riv {
-    let g:riv_disable_folding = 1
-    let g:riv_highlight_code = ''
   " }
 
   " html5.vim {
