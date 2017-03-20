@@ -144,6 +144,8 @@ set shell=/bin/bash
   Plug 'junegunn/fzf.vim'
   Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
   Plug 'rykka/riv.vim', { 'for': 'rst' }
+  Plug 'othree/html5.vim', { 'for': 'html' }
+  Plug 'tpope/vim-rails'
   call plug#end()
 
   " Gruvbox {
@@ -203,6 +205,12 @@ set shell=/bin/bash
   " Riv {
     let g:riv_disable_folding = 1
     let g:riv_highlight_code = ''
+  " }
+
+  " html5.vim {
+  " }
+
+  " vim-rails {
   " }
 " }
 
