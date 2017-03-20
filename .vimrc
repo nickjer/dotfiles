@@ -191,13 +191,21 @@ set shell=/bin/bash
   " }
 
   " FZF {
+    " Mapping selecting mappings
+    nmap <leader><tab> <plug>(fzf-maps-n)
+    xmap <leader><tab> <plug>(fzf-maps-x)
+    omap <leader><tab> <plug>(fzf-maps-o)
+
+    nmap <leader>ff :Files<CR>
+    nmap <leader>fg :GFiles<CR>
+    nmap <leader>fb :Buffers<CR>
   " }
 
   " Tabularize {
-    nmap <Leader>a= :Tabularize /=<CR>
-    vmap <Leader>a= :Tabularize /=<CR>
-    nmap <Leader>a: :Tabularize /:\zs<CR>
-    vmap <Leader>a: :Tabularize /:\zs<CR>
+    nmap <leader>a= :Tabularize /=<CR>
+    vmap <leader>a= :Tabularize /=<CR>
+    nmap <leader>a: :Tabularize /:\zs<CR>
+    vmap <leader>a: :Tabularize /:\zs<CR>
   " }
 
   " html5.vim {
