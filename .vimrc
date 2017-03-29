@@ -71,6 +71,7 @@ set shell=/bin/bash
   set foldenable                  " Auto fold code
   set list
   set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+  set colorcolumn=80              " Set column where formatting breaks lines
 
   if has('cmdline_info')
     set ruler                   " Show the ruler
