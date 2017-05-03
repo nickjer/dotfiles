@@ -104,6 +104,8 @@ set shell=/bin/bash
   set splitright                  " Puts new vsplit windows to the right of the current
   set splitbelow                  " Puts new split windows to the bottom of the current
   set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+
+  autocmd BufNewFile,BufRead *.md set filetype=markdown
 " }
 
 " Key (re)Mappings {
