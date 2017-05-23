@@ -1,5 +1,3 @@
-## use vim mode
-set editing-mode vi
 ## case-insensitive completion
 set completion-ignore-case on
 ## make symlinks look better
