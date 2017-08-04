@@ -148,6 +148,7 @@ set shell=/bin/bash
   Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
   Plug 'othree/html5.vim', { 'for': 'html' }
   Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+  Plug 'slim-template/vim-slim', { 'for': 'slim' }
   call plug#end()
 
   " Gruvbox {
