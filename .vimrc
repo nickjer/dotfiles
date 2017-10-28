@@ -149,6 +149,7 @@ set shell=/bin/bash
   Plug 'othree/html5.vim', { 'for': 'html' }
   Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
   Plug 'slim-template/vim-slim', { 'for': 'slim' }
+  Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
   call plug#end()
 
   " Gruvbox {
