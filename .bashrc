@@ -35,7 +35,3 @@ export EDITOR=vim
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
-
-# Reload Bash It due to alias completions not working
-# see: https://github.com/Bash-it/bash-it/issues/841
-source $BASH_IT/bash_it.sh
