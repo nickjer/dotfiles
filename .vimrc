@@ -151,6 +151,7 @@ set shell=/bin/bash
   Plug 'slim-template/vim-slim', { 'for': 'slim' }
   Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  Plug 'cespare/vim-toml', { 'for': 'toml' }
   call plug#end()
 
   " Gruvbox {
