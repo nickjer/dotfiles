@@ -150,6 +150,7 @@ set shell=/bin/bash
   Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
   Plug 'slim-template/vim-slim', { 'for': 'slim' }
   Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   call plug#end()
 
   " Gruvbox {
