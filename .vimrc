@@ -152,6 +152,7 @@ set shell=/bin/bash
   Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'cespare/vim-toml', { 'for': 'toml' }
+  Plug 'justinmk/vim-sneak'
   call plug#end()
 
   " Gruvbox {
@@ -223,6 +224,17 @@ set shell=/bin/bash
   " }
 
   " html5.vim {
+  " }
+
+  " Sneak {
+    " Replace f and t with one-character Sneak
+    map f <Plug>Sneak_f
+    map F <Plug>Sneak_F
+    map t <Plug>Sneak_t
+    map T <Plug>Sneak_T
+
+    " Label mode
+    let g:sneak#label = 1
   " }
 " }
 
