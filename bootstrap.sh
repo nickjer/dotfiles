@@ -1,42 +1,46 @@
-#/bin/env bash
+#/usr/bin/env bash
 
 cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
 
+source "${BASH_IT}/bash_it.sh"
+
 function doIt() {
   # Copy over contents
   rsync --exclude ".git/" \
-      --exclude "bootstrap.sh" \
-      --exclude "README.md" \
-      --exclude ".gitkeep" \
-      -avh --no-perms . ~ \
-    && bash-it enable aliases \
-      bundler \
-      curl \
-      docker \
-      docker-compose \
-      general \
-      git \
-      vim \
-    && bash-it enable plugins \
-      alias-completion \
-      base \
-      docker-compose \
-      docker \
-      edit-mode-vi \
-      git \
-      history \
-    && bash-it enable completions \
-      bash-it \
-      bundler \
-      docker \
-      docker-compose \
-      gem \
-      git \
-      npm \
-      rake \
-      system
+    --exclude "bootstrap.sh" \
+    --exclude "README.md" \
+    --exclude ".gitkeep" \
+    -avh --no-perms . ~ \
+
+  # Enable bash helpers
+  bash-it enable alias \
+    bundler \
+    curl \
+    docker \
+    docker-compose \
+    general \
+    git \
+    vim
+  bash-it enable plugin \
+    alias-completion \
+    base \
+    docker-compose \
+    docker \
+    edit-mode-vi \
+    git \
+    history
+  bash-it enable completion \
+    bash-it \
+    bundler \
+    docker \
+    docker-compose \
+    gem \
+    git \
+    npm \
+    rake \
+    system
 
   # Download/install ripgrep
   echo "Downloading and installing 'ripgrep'"
