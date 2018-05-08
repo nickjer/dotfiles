@@ -1,1 +1,0 @@
-../available/bundler.completion.bash

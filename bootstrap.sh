@@ -7,10 +7,36 @@ git pull origin master;
 function doIt() {
   # Copy over contents
   rsync --exclude ".git/" \
-    --exclude "bootstrap.sh" \
-    --exclude "README.md" \
-    --exclude ".gitkeep" \
-    -avh --no-perms . ~;
+      --exclude "bootstrap.sh" \
+      --exclude "README.md" \
+      --exclude ".gitkeep" \
+      -avh --no-perms . ~ \
+    && bash-it enable aliases \
+      bundler \
+      curl \
+      docker \
+      docker-compose \
+      general \
+      git \
+      vim \
+    && bash-it enable plugins \
+      alias-completion \
+      base \
+      docker-compose \
+      docker \
+      edit-mode-vi \
+      git \
+      history \
+    && bash-it enable completions \
+      bash-it \
+      bundler \
+      docker \
+      docker-compose \
+      gem \
+      git \
+      npm \
+      rake \
+      system
 
   # Download/install ripgrep
   echo "Downloading and installing 'ripgrep'"

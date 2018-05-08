@@ -1,1 +1,0 @@
-../available/docker.completion.bash
