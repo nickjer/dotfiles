@@ -146,13 +146,8 @@ set shell=/bin/bash
   Plug 'junegunn/fzf', { 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-  Plug 'othree/html5.vim', { 'for': 'html' }
-  Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-  Plug 'slim-template/vim-slim', { 'for': 'slim' }
-  Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
-  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-  Plug 'cespare/vim-toml', { 'for': 'toml' }
   Plug 'justinmk/vim-sneak'
+  Plug 'sheerun/vim-polyglot'
   call plug#end()
 
   " Gruvbox {
