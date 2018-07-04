@@ -147,6 +147,7 @@ set shell=/bin/bash
   Plug 'junegunn/fzf.vim'
   Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
   Plug 'justinmk/vim-sneak'
+  Plug 'pacha/vem-tabline'
   Plug 'sheerun/vim-polyglot'
   call plug#end()
 
