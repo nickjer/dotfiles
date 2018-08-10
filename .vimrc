@@ -149,6 +149,7 @@ set shell=/bin/bash
   Plug 'justinmk/vim-sneak'
   Plug 'pacha/vem-tabline'
   Plug 'sheerun/vim-polyglot'
+  Plug 'quramy/tsuquyomi', { 'for': 'typescript' }
   call plug#end()
 
   " Gruvbox {
