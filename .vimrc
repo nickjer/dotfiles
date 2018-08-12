@@ -135,7 +135,7 @@ set shell=/bin/bash
   Plug 'morhetz/gruvbox'
   Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
-  Plug 'vim-syntastic/syntastic'
+  Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
@@ -149,7 +149,6 @@ set shell=/bin/bash
   Plug 'justinmk/vim-sneak'
   Plug 'pacha/vem-tabline'
   Plug 'sheerun/vim-polyglot'
-  Plug 'quramy/tsuquyomi', { 'for': 'typescript' }
   call plug#end()
 
   " Gruvbox {
