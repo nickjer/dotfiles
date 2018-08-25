@@ -1,9 +1,5 @@
 #/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE}")";
-
-git pull origin master;
-
 source "${BASH_IT}/bash_it.sh"
 
 function doIt() {
@@ -65,6 +61,19 @@ function doIt() {
     cd "${tmp}" && \
       curl -L "${url}" | tar xz && \
       mv fzf ~/bin
+  )
+  rm -fr "${tmp}"
+
+  # Download/install fd
+  echo "Downloading and installing 'fd'"
+  local github="$(githubUrl sharkdp fd)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/fd-${version}-x86_64-unknown-linux-gnu.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      mv fd ~/bin
   )
   rm -fr "${tmp}"
 }
