@@ -26,6 +26,7 @@ function doIt() {
     docker \
     edit-mode-vi \
     git \
+    fzf \
     history
   bash-it enable completion \
     bash-it \
@@ -60,7 +61,20 @@ function doIt() {
   (
     cd "${tmp}" && \
       curl -L "${url}" | tar xz && \
-      mv fzf ~/bin
+      mv fzf ~/bin && \
+      cat shell/completion.bash shell/key-bindings.bash > ~/.fzf.bash
+  )
+  rm -fr "${tmp}"
+
+  # Download/install fzf scripts
+  echo "Downloading and installing 'fzf scripts'"
+  local github="$(githubUrl junegunn fzf)"
+  local url="${github}/archive/master.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      cat shell/completion.bash shell/key-bindings.bash > ~/.fzf.bash
   )
   rm -fr "${tmp}"
 
@@ -76,6 +90,27 @@ function doIt() {
       mv fd ~/bin
   )
   rm -fr "${tmp}"
+
+  # Download/install bat
+  echo "Downloading and installing 'bat'"
+  local github="$(githubUrl sharkdp bat)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/bat-${version}-x86_64-unknown-linux-gnu.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      mv bat ~/bin
+  )
+  rm -fr "${tmp}"
+
+  # Download/install tldr
+  echo "Downloading and installing 'tldr'"
+  local github="$(githubUrl dbrgn tealdeer)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/tldr-x86_64-musl"
+  curl -L "${url}" -o ~/bin/tldr && \
+    chmod 755 ~/bin/tldr
 }
 
 function githubUrl {
