@@ -189,6 +189,7 @@ set shell=/bin/bash
   " }
 
   " NERDCommenter {
+    let g:NERDSpaceDelims = 1
     let g:NERDDefaultAlign = 'left'
   " }
 
