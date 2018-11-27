@@ -6,6 +6,7 @@ function doIt() {
   # Copy over contents
   rsync --exclude ".git/" \
     --exclude "bootstrap.sh" \
+    --exclude "bootstrap_script.sh" \
     --exclude "README.md" \
     --exclude ".gitkeep" \
     -avh --no-perms . ~ \
