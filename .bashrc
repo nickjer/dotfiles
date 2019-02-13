@@ -48,3 +48,6 @@ _fzf_compgen_dir() {
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
+
+# Add kitty completion
+command -v kitty &> /dev/null && source <(kitty + complete setup bash)
