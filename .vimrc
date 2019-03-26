@@ -149,6 +149,10 @@ set shell=/bin/bash
   Plug 'justinmk/vim-sneak'
   Plug 'pacha/vem-tabline'
   Plug 'sheerun/vim-polyglot'
+  if has('nvim')
+    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  endif
   call plug#end()
 
   " Gruvbox {
@@ -228,6 +232,17 @@ set shell=/bin/bash
 
     " Label mode
     let g:sneak#label = 1
+  " }
+
+  " LanguageClient-neovim {
+    " Add LSP server startup commands
+    let g:LanguageClient_serverCommands = {
+      \ 'ruby': ['solargraph', 'stdio']
+      \ }
+  " }
+
+  " deoplete.nvim {
+    let g:deoplete#enable_at_startup = 1
   " }
 " }
 
