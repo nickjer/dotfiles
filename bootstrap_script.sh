@@ -40,6 +40,12 @@ function doIt() {
     rake \
     system
 
+  # Download/install coc.nvim extensions
+  (
+    cd "${HOME}/.config/coc/extensions"
+    yarn install
+  )
+
   # Download/install ripgrep
   echo "Downloading and installing 'ripgrep'"
   local github="$(githubUrl BurntSushi ripgrep)"

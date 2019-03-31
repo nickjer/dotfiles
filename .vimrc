@@ -72,6 +72,7 @@ set shell=/bin/bash
   set list
   set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
   set colorcolumn=80              " Set column where formatting breaks lines
+  set noshowmode                  " Remove default mode indicator (use airline)
 
   if has('cmdline_info')
     set ruler                   " Show the ruler
@@ -150,8 +151,8 @@ set shell=/bin/bash
   Plug 'pacha/vem-tabline'
   Plug 'sheerun/vim-polyglot'
   if has('nvim')
-    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': { -> coc#util#install() } }
+    Plug 'honza/vim-snippets'
   endif
   call plug#end()
 
@@ -232,17 +233,6 @@ set shell=/bin/bash
 
     " Label mode
     let g:sneak#label = 1
-  " }
-
-  " LanguageClient-neovim {
-    " Add LSP server startup commands
-    let g:LanguageClient_serverCommands = {
-      \ 'ruby': ['solargraph', 'stdio']
-      \ }
-  " }
-
-  " deoplete.nvim {
-    let g:deoplete#enable_at_startup = 1
   " }
 " }
 

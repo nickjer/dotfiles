@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "coc-json": "^1.0.12",
+    "coc-snippets": "^2.0.5"
+  }
+}
