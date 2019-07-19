@@ -151,7 +151,7 @@ set shell=/bin/bash
   Plug 'pacha/vem-tabline'
   Plug 'sheerun/vim-polyglot'
   if has('nvim')
-    Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': { -> coc#util#install() } }
+    Plug 'neoclide/coc.nvim', { 'tag': '*', 'branch': 'release' }
     Plug 'honza/vim-snippets'
   endif
   call plug#end()
