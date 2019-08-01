@@ -1,14 +1,5 @@
 {
   "languageserver": {
-    "ruby": {
-      "command": "solargraph",
-      "args": ["stdio"],
-      "filetypes": ["ruby"],
-      "initializationOptions": {
-      },
-      "settings": {
-      }
-    },
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
