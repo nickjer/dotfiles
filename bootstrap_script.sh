@@ -115,7 +115,7 @@ function doIt() {
   echo "Downloading and installing 'tldr'"
   local github="$(githubUrl dbrgn tealdeer)"
   local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/tldr-x86_64-musl"
+  local url="${github}/releases/download/${version}/tldr-linux-x86_64-musl"
   curl -L "${url}" -o ~/bin/tldr && \
     chmod 755 ~/bin/tldr
 }
