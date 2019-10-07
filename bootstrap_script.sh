@@ -3,6 +3,9 @@
 # Install neovim if missing
 if ! command -v nvim &> /dev/null ; then
   echo "Installing neovim..."
+  sudo apt-get update
+  sudo apt-get install software-properties-common
+
   sudo add-apt-repository ppa:neovim-ppa/unstable
   sudo apt-get update
   sudo apt-get install neovim
