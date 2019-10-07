@@ -15,6 +15,7 @@ fi
 VIM_CMD="${HOME}/bin/vim"
 if [[ ! -f "${VIM_CMD}" ]] ; then
   echo "Setting neovim as default vim command..."
+  mkdir -p "$(dirname "${VIM_CMD}")"
   echo $'#!/usr/bin/env bash\n\nexec nvim "${@}"' > "${VIM_CMD}"
   chmod 755 "${VIM_CMD}"
 fi
