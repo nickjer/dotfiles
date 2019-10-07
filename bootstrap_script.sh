@@ -1,5 +1,28 @@
 #/usr/bin/env bash
 
+# Install neovim if missing
+if ! command -v nvim &> /dev/null ; then
+  echo "Installing neovim..."
+  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo apt-get update
+  sudo apt-get install neovim
+fi
+
+# Set neovim as default vim command
+VIM_CMD="${HOME}/bin/vim"
+if [[ ! -f "${VIM_CMD}" ]] ; then
+  echo "Setting neovim as default vim command..."
+  echo $'#!/usr/bin/env bash\n\nexec nvim "${@}"' > "${VIM_CMD}"
+  chmod 755 "${VIM_CMD}"
+fi
+
+# Install bash-it if missing
+if ! command -v bash-it &> /dev/null ; then
+  echo "Installing bash-it..."
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git "${HOME}/.bash_it"
+  "${HOME}/.bash_it/install.sh"
+fi
+
 source "${BASH_IT}/bash_it.sh"
 
 function doIt() {
