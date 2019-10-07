@@ -18,6 +18,7 @@ set shell=/bin/bash
   set spell                   " Spell checking on
   set hidden                  " Allow buffer switching without saving
   set lazyredraw              " Buffer the screen updates
+  set regexpengine=1          " Performance gain using old regular expression engine
 
   " Instead of reverting the cursor to the last position in the buffer, we set
   " it to the first line when editing a git commit message
