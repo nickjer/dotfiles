@@ -21,10 +21,11 @@ if [[ ! -f "${VIM_CMD}" ]] ; then
 fi
 
 # Install bash-it if missing
+BASH_IT="${HOME}/.bash_it"
 if ! command -v bash-it &> /dev/null ; then
   echo "Installing bash-it..."
-  git clone --depth=1 https://github.com/Bash-it/bash-it.git "${HOME}/.bash_it"
-  "${HOME}/.bash_it/install.sh"
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git "${BASH_IT}"
+  "${BASH_IT}/install.sh"
 fi
 
 source "${BASH_IT}/bash_it.sh"
