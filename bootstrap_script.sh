@@ -22,7 +22,7 @@ fi
 
 # Install bash-it if missing
 BASH_IT="${HOME}/.bash_it"
-if ! command -v bash-it &> /dev/null ; then
+if [[ ! -f "${BASH_IT}/bash_it.sh" ]] ; then
   echo "Installing bash-it..."
   git clone --depth=1 https://github.com/Bash-it/bash-it.git "${BASH_IT}"
   "${BASH_IT}/install.sh"
