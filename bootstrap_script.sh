@@ -170,5 +170,9 @@ else
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     doIt;
   fi;
+
+  # Install vim plugins
+  echo "Bootstrapping vim..."
+  nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
 fi;
 unset doIt;

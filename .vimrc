@@ -134,6 +134,12 @@ set shell=/bin/bash
   noremap k gk
 " }
 
+" Download vim-plug if missing
+if empty(glob("~/.vim/autoload/plug.vim"))
+  silent! execute '!curl --create-dirs -fsSLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * silent! PlugInstall
+endif
+
 " Plugins {
   call plug#begin('~/.vim/plugged')  " specify dir for plugins
   Plug 'morhetz/gruvbox'
