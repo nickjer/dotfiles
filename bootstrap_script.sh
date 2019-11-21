@@ -96,8 +96,7 @@ function doIt() {
   (
     cd "${tmp}" && \
       curl -L "${url}" | tar xz && \
-      mv fzf ~/bin && \
-      cat shell/completion.bash shell/key-bindings.bash > ~/.fzf.bash
+      mv fzf ~/bin
   )
   rm -fr "${tmp}"
 
