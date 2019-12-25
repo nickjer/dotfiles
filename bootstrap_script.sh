@@ -74,6 +74,19 @@ function doIt() {
     yarn install
   )
 
+  # Download/install starship
+  echo "Downloading and installing 'starship'"
+  local github="$(githubUrl starship starship)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/starship-x86_64-unknown-linux-gnu.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz && \
+      mv starship ~/bin
+  )
+  rm -fr "${tmp}"
+
   # Download/install ripgrep
   echo "Downloading and installing 'ripgrep'"
   local github="$(githubUrl BurntSushi ripgrep)"
