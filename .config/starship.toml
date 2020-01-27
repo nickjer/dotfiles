@@ -1,8 +1,16 @@
+[aws]
+style = "dimmed red"
+symbol = "🅰 "
+
+[cmd_duration]
+prefix = "~"
+
 [directory]
 truncate_to_repo = false
 
 [git_branch]
 style = "bold green"
+symbol = "🅶 "
 
 [git_status]
 conflicted_count.enabled = true
@@ -15,3 +23,7 @@ show_sync_count.enabled = true
 
 [nodejs]
 style = "bold purple"
+symbol = "🅽 "
+
+[ruby]
+symbol = "🆁 "
