@@ -95,5 +95,6 @@ if command -v starship &> /dev/null ; then
     history -a
   }
   starship_precmd_user_func="_save-history"
+  unset PROMPT_COMMAND
   eval "$(starship init bash)"
 fi
