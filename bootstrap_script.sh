@@ -175,6 +175,53 @@ function getVersion() {
   echo "$(echo "${json}" | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')"
 }
 
+function installChruby() {
+  local github="$(githubUrl postmodern chruby)"
+  local version="master"
+  local url="${github}/archive/${version}.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}"
+    curl -L "${url}" | tar xz --strip-components=1
+    PREFIX="${HOME}/.chruby" make install
+  )
+  rm -fr "${tmp}"
+
+  local github="$(githubUrl postmodern ruby-install)"
+  local version="master"
+  local url="${github}/archive/${version}.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}"
+    curl -L "${url}" | tar xz --strip-components=1
+    PREFIX="${HOME}/.chruby" make install
+  )
+  rm -fr "${tmp}"
+}
+
+function installNvm() {
+  local github="$(githubUrl nvm-sh nvm)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/archive/${version}.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    export PROFILE=/dev/null
+    cd "${tmp}"
+    curl -L "${url}" | tar xz --strip-components=1 && bash install.sh
+  )
+  rm -fr "${tmp}"
+}
+
+# Install chruby if missing
+if [[ ! -d "${HOME}/.chruby" ]] ; then
+  installChruby
+fi
+
+# Install nvm if missing
+if [[ ! -d "${HOME}/.nvm" ]] ; then
+  installNvm
+fi
+
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
   doIt;
 else
