@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-set -euxo pipefail
+set -exo pipefail
 
 # Install make if missing
 if ! command -v make &> /dev/null ; then
@@ -10,6 +10,14 @@ fi
 # Install curl if missing
 if ! command -v curl &> /dev/null ; then
   sudo apt install -y curl
+fi
+
+# Install bash-it if missing
+BASH_IT="${HOME}/.bash_it"
+if [[ ! -f "${BASH_IT}/bash_it.sh" ]] ; then
+  echo "Installing bash-it..."
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git "${BASH_IT}"
+  "${BASH_IT}/install.sh" --silent
 fi
 
 # Copy over dotfiles
@@ -33,15 +41,19 @@ fi
   done
 )
 
+set +exo
+source "${BASH_IT}/bash_it.sh"
+set -exo pipefail
+
 # Install neovim if missing
 if ! command -v nvim &> /dev/null ; then
   echo "Installing neovim..."
   sudo apt-get update
-  sudo apt-get install software-properties-common
+  sudo apt-get install -y software-properties-common
 
-  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo add-apt-repository -y ppa:neovim-ppa/unstable
   sudo apt-get update
-  sudo apt-get install neovim
+  sudo apt-get install -y neovim
 fi
 
 # Set neovim as default vim command
@@ -53,17 +65,8 @@ if [[ ! -f "${VIM_CMD}" ]] ; then
   chmod 755 "${VIM_CMD}"
 fi
 
-# Install bash-it if missing
-BASH_IT="${HOME}/.bash_it"
-if [[ ! -f "${BASH_IT}/bash_it.sh" ]] ; then
-  echo "Installing bash-it..."
-  git clone --depth=1 https://github.com/Bash-it/bash-it.git "${BASH_IT}"
-  "${BASH_IT}/install.sh"
-fi
-
-source "${BASH_IT}/bash_it.sh"
-
 function doIt() {
+  set +exo
   # Enable bash helpers
   bash-it enable alias \
     bundler \
@@ -92,6 +95,7 @@ function doIt() {
     npm \
     rake \
     system
+  set -exo pipefail
 
   # Download/install coc.nvim extensions
   (
@@ -261,7 +265,7 @@ function installYarn() {
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
-  sudo apt update && sudo apt install --no-install-recommends yarn
+  sudo apt update && sudo apt install --no-install-recommends -y yarn
   echo "Done installing yarn!"
 }
 
