@@ -1,5 +1,17 @@
 #/usr/bin/env bash
 
+set -euxo pipefail
+
+# Install make if missing
+if ! command -v make &> /dev/null ; then
+  sudo apt install -y make
+fi
+
+# Install curl if missing
+if ! command -v curl &> /dev/null ; then
+  sudo apt install -y curl
+fi
+
 # Copy over dotfiles
 (
   cd src
