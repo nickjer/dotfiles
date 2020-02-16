@@ -1,5 +1,26 @@
 #/usr/bin/env bash
 
+# Copy over dotfiles
+(
+  cd src
+  for FILE in $(find . -type f) ; do
+    COPY_PATH="$(realpath -m -s "${HOME}/${FILE}")"
+    mkdir -p "$(dirname "${COPY_PATH}")"
+
+    ORIG_PATH="$(realpath "${FILE}")"
+    if [[ ! -L "${COPY_PATH}" ]] ; then
+      if [[ -e "${COPY_PATH}" ]] ; then
+        BACKUP_PATH="${COPY_PATH}.bak"
+        echo "Backing up ${COPY_PATH} to ${BACKUP_PATH}"
+        mv "${COPY_PATH}" "${BACKUP_PATH}"
+      fi
+
+      echo "Copying file ${ORIG_PATH}..."
+      ln -s "${ORIG_PATH}" "${COPY_PATH}"
+    fi
+  done
+)
+
 # Install neovim if missing
 if ! command -v nvim &> /dev/null ; then
   echo "Installing neovim..."
@@ -31,14 +52,6 @@ fi
 source "${BASH_IT}/bash_it.sh"
 
 function doIt() {
-  # Copy over contents
-  rsync --exclude ".git/" \
-    --exclude "bootstrap.sh" \
-    --exclude "bootstrap_script.sh" \
-    --exclude "README.md" \
-    --exclude ".gitkeep" \
-    -avh --no-perms . ~ \
-
   # Enable bash helpers
   bash-it enable alias \
     bundler \
@@ -265,17 +278,8 @@ if ! command -v yarn &> /dev/null ; then
   installYarn
 fi
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
-  doIt;
-else
-  read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-  echo "";
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    doIt;
-  fi;
+doIt
 
-  # Install vim plugins
-  echo "Bootstrapping vim..."
-  nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
-fi;
-unset doIt;
+# Install vim plugins
+echo "Bootstrapping vim..."
+nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
