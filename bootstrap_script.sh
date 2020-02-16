@@ -176,6 +176,7 @@ function getVersion() {
 }
 
 function installChruby() {
+  echo "Installing chruby..."
   local github="$(githubUrl postmodern chruby)"
   local version="master"
   local url="${github}/archive/${version}.tar.gz"
@@ -197,9 +198,18 @@ function installChruby() {
     PREFIX="${HOME}/.chruby" make install
   )
   rm -fr "${tmp}"
+  echo "Done installing chruby!"
+}
+
+function installRuby() {
+  echo "Installing ruby..."
+  export PATH="${HOME}/.chruby/bin:${PATH}"
+  ruby-install ruby 2.6
+  echo "Done installing ruby!"
 }
 
 function installNvm() {
+  echo "Installing nvm..."
   local github="$(githubUrl nvm-sh nvm)"
   local version="$(getVersion "${github}")"
   local url="${github}/archive/${version}.tar.gz"
@@ -210,6 +220,24 @@ function installNvm() {
     curl -L "${url}" | tar xz --strip-components=1 && bash install.sh
   )
   rm -fr "${tmp}"
+  echo "Done installing nvm!"
+}
+
+function installNode() {
+  echo "Installing node..."
+  export NVM_DIR="${HOME}/.nvm"
+  source "${NVM_DIR}/nvm.sh"
+  nvm install --lts
+  echo "Done installing node..."
+}
+
+function installYarn() {
+  echo "Installing yarn..."
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+  sudo apt update && sudo apt install --no-install-recommends yarn
+  echo "Done installing yarn!"
 }
 
 # Install chruby if missing
@@ -217,9 +245,24 @@ if [[ ! -d "${HOME}/.chruby" ]] ; then
   installChruby
 fi
 
+# Install ruby if missing
+if ! command -v ruby &> /dev/null ; then
+  installRuby
+fi
+
 # Install nvm if missing
 if [[ ! -d "${HOME}/.nvm" ]] ; then
   installNvm
+fi
+
+# Install node if missing
+if ! command -v node &> /dev/null ; then
+  installNode
+fi
+
+# Install yarn if missing
+if ! command -v yarn &> /dev/null ; then
+  installYarn
 fi
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
