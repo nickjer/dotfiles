@@ -12,6 +12,11 @@ if ! command -v curl &> /dev/null ; then
   sudo apt install -y curl
 fi
 
+# Install xsel if missing
+if ! command -v xsel &> /dev/null ; then
+  sudo apt install -y xsel
+fi
+
 # Install bash-it if missing
 BASH_IT="${HOME}/.bash_it"
 if [[ ! -f "${BASH_IT}/bash_it.sh" ]] ; then
