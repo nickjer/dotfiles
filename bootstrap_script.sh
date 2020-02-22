@@ -99,6 +99,7 @@ function doIt() {
     gem \
     git \
     npm \
+    nvm \
     rake \
     system
   set -exo pipefail
