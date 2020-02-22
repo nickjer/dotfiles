@@ -26,13 +26,6 @@ if [ -d "$HOME/.chruby" ] ; then
   chruby ruby-2.6
 fi
 
-# set PATH so it includes nvm's private bin if it exists
-if [ -d "$HOME/.nvm" ] ; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
 # set PATH so it includes yarn's private bin if it exists
 if [ -d "$HOME/.yarn/bin" ] ; then
   PATH="$HOME/.yarn/bin:$PATH"

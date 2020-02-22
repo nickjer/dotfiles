@@ -87,9 +87,10 @@ function doIt() {
     docker-compose \
     docker \
     edit-mode-vi \
-    git \
     fzf \
-    history
+    git \
+    history \
+    nvm
   bash-it enable completion \
     bash-it \
     bundler \
