@@ -194,6 +194,14 @@ function doIt() {
   local url="${github}/releases/download/${version}/tldr-linux-x86_64-musl"
   curl -L "${url}" -o ~/bin/tldr && \
     chmod 755 ~/bin/tldr
+
+  # Download/install jira
+  echo "Downloading and installing 'jira'"
+  local github="$(githubUrl go-jira jira)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/jira-linux-amd64"
+  curl -L "${url}" -o ~/bin/jira && \
+    chmod 755 ~/bin/jira
 }
 
 function githubUrl {
