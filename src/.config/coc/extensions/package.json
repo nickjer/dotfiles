@@ -2,7 +2,7 @@
   "dependencies": {
     "coc-json": ">=1.2.5",
     "coc-pairs": ">=1.2.20",
-    "coc-snippets": ">=2.1.19",
+    "coc-snippets": ">=2.1.24",
     "coc-solargraph": ">=1.1.6"
   }
 }
