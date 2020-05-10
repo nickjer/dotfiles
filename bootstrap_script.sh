@@ -248,7 +248,7 @@ function installChruby() {
 function installRuby() {
   echo "Installing ruby..."
   export PATH="${HOME}/.chruby/bin:${PATH}"
-  ruby-install ruby 2.6
+  ruby-install ruby 2.7
   echo "Done installing ruby!"
 }
 
