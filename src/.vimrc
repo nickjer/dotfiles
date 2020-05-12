@@ -182,6 +182,7 @@ endif
     let g:ale_sign_error = '✘'
     let g:ale_sign_warning = '⚠'
     let g:ale_ruby_rubocop_executable = 'bundle'
+    let g:ale_ruby_reek_executable = 'bundle'
 
     " Map movement through errors with wrapping
     nmap <silent> <C-k> <Plug>(ale_previous_wrap)
