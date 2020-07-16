@@ -18,7 +18,7 @@ set shell=/bin/bash
   set spell                   " Spell checking on
   set hidden                  " Allow buffer switching without saving
   set lazyredraw              " Buffer the screen updates
-  set regexpengine=1          " Performance gain using old regular expression engine
+  " set regexpengine=1          " Performance gain using old regular expression engine
   set cmdheight=2             " Better display for messages
   set signcolumn=yes          " Always show signcolumns
 
