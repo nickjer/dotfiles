@@ -76,6 +76,7 @@ set shell=/bin/bash
   set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
   set colorcolumn=80              " Set column where formatting breaks lines
   set noshowmode                  " Remove default mode indicator (use airline)
+  highlight link yardGenericTag rubyKeyword " better highlight yardoc keywords
 
   if has('cmdline_info')
     set ruler                   " Show the ruler
