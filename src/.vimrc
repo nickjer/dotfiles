@@ -149,6 +149,8 @@ endif
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-rails'
+  Plug 'tpope/vim-bundler'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'myusuf3/numbers.vim'
   Plug 'scrooloose/nerdcommenter'
