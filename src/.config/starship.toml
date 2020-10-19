@@ -3,7 +3,7 @@ style = "dimmed red"
 symbol = "🅰 "
 
 [cmd_duration]
-prefix = "~"
+format = "~[$duration]($style)"
 
 [directory]
 truncate_to_repo = false
