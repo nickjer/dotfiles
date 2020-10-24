@@ -22,7 +22,7 @@ BASH_IT="${HOME}/.bash_it"
 if [[ ! -f "${BASH_IT}/bash_it.sh" ]] ; then
   echo "Installing bash-it..."
   git clone --depth=1 https://github.com/Bash-it/bash-it.git "${BASH_IT}"
-  "${BASH_IT}/install.sh" --silent
+  "${BASH_IT}/install.sh" --silent --no-modify-config
 fi
 
 # Copy over dotfiles
@@ -49,26 +49,6 @@ fi
 set +exo
 source "${BASH_IT}/bash_it.sh"
 set -exo pipefail
-
-# Install neovim if missing
-if ! command -v nvim &> /dev/null ; then
-  echo "Installing neovim..."
-  sudo apt-get update
-  sudo apt-get install -y software-properties-common
-
-  sudo add-apt-repository -y ppa:neovim-ppa/unstable
-  sudo apt-get update
-  sudo apt-get install -y neovim
-fi
-
-# Set neovim as default vim command
-VIM_CMD="${HOME}/bin/vim"
-if [[ ! -f "${VIM_CMD}" ]] ; then
-  echo "Setting neovim as default vim command..."
-  mkdir -p "$(dirname "${VIM_CMD}")"
-  echo $'#!/usr/bin/env bash\n\nexec nvim "${@}"' > "${VIM_CMD}"
-  chmod 755 "${VIM_CMD}"
-fi
 
 function doIt() {
   set +exo
@@ -103,6 +83,14 @@ function doIt() {
     rake \
     system
   set -exo pipefail
+
+  # Download/install neovim
+  echo "Downloading and installing 'neovim'"
+  local github="$(githubUrl neovim neovim)"
+  local url="${github}/releases/download/nightly/nvim.appimage"
+  curl -L "${url}" -o ~/bin/nvim && \
+    chmod 755 ~/bin/nvim
+  rm -fr "${tmp}"
 
   # Download/install coc.nvim extensions
   (
@@ -313,4 +301,4 @@ doIt
 
 # Install vim plugins
 echo "Bootstrapping vim..."
-nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+"${HOME}/bin/nvim" '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
