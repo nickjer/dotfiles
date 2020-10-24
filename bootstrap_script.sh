@@ -12,6 +12,31 @@ if ! command -v curl &> /dev/null ; then
   sudo apt install -y curl
 fi
 
+# Install tar if missing
+if ! command -v tar &> /dev/null ; then
+  sudo apt install -y tar
+fi
+
+# Install openssl if missing
+if ! command -v openssl &> /dev/null ; then
+  sudo apt install -y openssl
+fi
+
+# Install bzip2 if missing
+if ! command -v bzip2 &> /dev/null ; then
+  sudo apt install -y bzip2
+fi
+
+# Install patch if missing
+if ! command -v patch &> /dev/null ; then
+  sudo apt install -y patch
+fi
+
+# Install gcc if missing
+if ! command -v gcc &> /dev/null ; then
+  sudo apt install build-essential
+fi
+
 # Install xsel if missing
 if ! command -v xsel &> /dev/null ; then
   sudo apt install -y xsel
@@ -236,7 +261,7 @@ function installChruby() {
 function installRuby() {
   echo "Installing ruby..."
   export PATH="${HOME}/.chruby/bin:${PATH}"
-  ruby-install --latest ruby
+  ruby-install --no-install-deps --latest ruby
   echo "Done installing ruby!"
 }
 
