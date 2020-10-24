@@ -25,7 +25,7 @@ if [ -d "$HOME/.chruby" ] ; then
   PATH="$HOME/.chruby/bin:$PATH"
   . "$HOME/.chruby/share/chruby/chruby.sh"
   . "$HOME/.chruby/share/chruby/auto.sh"
-  chruby ruby-2.7
+  chruby ruby
 fi
 
 # set PATH so it includes yarn's private bin if it exists
