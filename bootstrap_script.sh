@@ -300,7 +300,7 @@ function installNode() {
   export NVM_DIR="${HOME}/.nvm"
   source "${NVM_DIR}/nvm.sh"
   nvm install --lts
-  echo "Done installing node..."
+  echo "Done installing node!"
 }
 
 function installYarn() {
