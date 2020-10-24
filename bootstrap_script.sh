@@ -200,6 +200,19 @@ function doIt() {
   )
   rm -fr "${tmp}"
 
+  # Download/install cloak
+  echo "Downloading and installing 'cloak'"
+  local github="$(githubUrl evansmurithi cloak)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/cloak-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      mv cloak ~/bin
+  )
+  rm -fr "${tmp}"
+
   # Download/install tldr
   echo "Downloading and installing 'tldr'"
   local github="$(githubUrl dbrgn tealdeer)"
