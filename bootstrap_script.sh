@@ -77,6 +77,8 @@ set -exo pipefail
 
 function doIt() {
   set +exo
+  # Update bash-it
+  bash-it update dev
   # Enable bash helpers
   bash-it enable alias \
     bundler \
@@ -336,4 +338,4 @@ doIt
 
 # Install vim plugins
 echo "Bootstrapping vim..."
-"${HOME}/bin/nvim" '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+"${HOME}/bin/nvim" '+PlugUpgrade' '+PlugClean!' '+PlugUpdate' '+qall'
