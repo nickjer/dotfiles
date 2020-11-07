@@ -151,6 +151,19 @@ function doIt() {
   )
   rm -fr "${tmp}"
 
+  # Download/install gron
+  echo "Downloading and installing 'gron'"
+  local github="$(githubUrl tomnomnom gron)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/gron-linux-amd64-${version#v}.tgz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz && \
+      mv gron ~/bin
+  )
+  rm -fr "${tmp}"
+
   # Download/install fzf
   echo "Downloading and installing 'fzf'"
   local github="$(githubUrl junegunn fzf-bin)"
@@ -239,12 +252,12 @@ function githubUrl {
 }
 
 function getVersion() {
-  local github="${1}"
-  local json="$(curl -L -s -H 'Accept: application/json' ${github}/releases/latest)"
+  local github="$(echo "${1}" | sed 's/github\.com/api.github.com\/repos/')"
+  local json="$(curl -L -s -H 'Accept: application/vnd.github.v3+json' ${github}/releases)"
   # The releases are returned in the format:
   #     {"id":3622206,"tag_name":"hello-1.0.0.11",...}
   # we have to extract the tag_name.
-  echo "$(echo "${json}" | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')"
+  echo "$(echo "${json}" | sed -E -n 's/.*"tag_name":\s*"([^"]+)".*/\1/p' | head -n 1)"
 }
 
 function installChruby() {
