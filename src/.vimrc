@@ -168,6 +168,10 @@ endif
   endif
   call plug#end()
 
+  " rust.vim {
+    let g:rust_recommended_style = 0
+  " }
+
   " Gruvbox {
     let g:gruvbox_contrast_dark = 'medium'
     colorscheme gruvbox
