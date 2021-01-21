@@ -323,9 +323,7 @@ function installYarn() {
 }
 
 # Install chruby if missing
-if [[ ! -d "${HOME}/.chruby" ]] ; then
-  installChruby
-fi
+installChruby
 
 # Install ruby if missing
 if ! command -v ruby &> /dev/null ; then
