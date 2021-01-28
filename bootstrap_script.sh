@@ -97,7 +97,7 @@ function doIt() {
     fzf \
     git \
     history \
-    history-substring-search \
+    history-search \
     nvm
   bash-it enable completion \
     bash-it \
