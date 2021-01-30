@@ -102,6 +102,7 @@ function doIt() {
   bash-it enable completion \
     bash-it \
     bundler \
+    cargo \
     docker \
     docker-compose \
     gem \
@@ -109,6 +110,7 @@ function doIt() {
     npm \
     nvm \
     rake \
+    rustup \
     system
   set -exo pipefail
 
