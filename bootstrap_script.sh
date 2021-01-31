@@ -154,6 +154,19 @@ function doIt() {
   )
   rm -fr "${tmp}"
 
+  # Download/install delta
+  echo "Downloading and installing 'delta'"
+  local github="$(githubUrl dandavison delta)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/delta-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      mv delta ~/bin
+  )
+  rm -fr "${tmp}"
+
   # Download/install gron
   echo "Downloading and installing 'gron'"
   local github="$(githubUrl tomnomnom gron)"
