@@ -1,0 +1,3 @@
+*.yml.enc diff=enc
+*.rb diff=ruby
+*.rake diff=ruby
