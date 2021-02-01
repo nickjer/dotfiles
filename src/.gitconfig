@@ -2,6 +2,9 @@
   email = jeremywnicklas@gmail.com
   name = Jeremy Nicklas
 
+[pull]
+  rebase = false
+
 [diff "enc"]
   textconv = bin/rails encrypted:show
   cachetextconv = false
