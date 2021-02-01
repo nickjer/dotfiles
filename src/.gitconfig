@@ -1,0 +1,28 @@
+[user]
+  email = jeremywnicklas@gmail.com
+  name = Jeremy Nicklas
+
+[diff "enc"]
+  textconv = bin/rails encrypted:show
+  cachetextconv = false
+
+[diff "pe_config_yaml"]
+  xfuncname = "^- code: (.+)$"
+
+[diff "pe_hiscox_yaml"]
+  xfuncname = "^  (\\S+):$"
+
+[core]
+  pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
