@@ -122,12 +122,6 @@ function doIt() {
     chmod 755 ~/bin/nvim
   rm -fr "${tmp}"
 
-  # Download/install coc.nvim extensions
-  (
-    cd "${HOME}/.config/coc/extensions"
-    yarn install
-  )
-
   # Download/install starship
   echo "Downloading and installing 'starship'"
   local github="$(githubUrl starship starship)"
@@ -366,3 +360,8 @@ doIt
 # Install vim plugins
 echo "Bootstrapping vim..."
 "${HOME}/bin/nvim" '+PlugUpgrade' '+PlugClean!' '+PlugUpdate' '+qall'
+
+# Download/install coc.nvim extensions
+"${HOME}/bin/nvim" \
+  '+CocInstall coc-json coc-pairs coc-rls coc-sh coc-snippets coc-solargraph' \
+  '+qall'
