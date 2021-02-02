@@ -144,7 +144,6 @@ endif
 " Plugins {
   call plug#begin('~/.vim/plugged')  " specify dir for plugins
   Plug 'morhetz/gruvbox'
-  Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
   Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
@@ -175,11 +174,6 @@ endif
   " Gruvbox {
     let g:gruvbox_contrast_dark = 'medium'
     colorscheme gruvbox
-  " }
-
-  " GitGutter {
-    let g:gitgutter_realtime = 0
-    let g:gitgutter_eager = 0
   " }
 
   " Airline {
