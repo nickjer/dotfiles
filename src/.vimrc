@@ -152,6 +152,7 @@ endif
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-bundler'
+  Plug 'ruanyl/vim-gh-line'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'myusuf3/numbers.vim'
   Plug 'scrooloose/nerdcommenter'
