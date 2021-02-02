@@ -156,7 +156,6 @@ endif
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'myusuf3/numbers.vim'
   Plug 'scrooloose/nerdcommenter'
-  Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
   Plug 'junegunn/fzf', { 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
@@ -211,15 +210,6 @@ endif
   " NERDCommenter {
     let g:NERDSpaceDelims = 1
     let g:NERDDefaultAlign = 'left'
-  " }
-
-  " NERDTree {
-    nmap <C-e>      :NERDTreeToggle<CR>
-    nmap <leader>e  :NERDTreeFind<CR>
-
-    let NERDTreeQuitOnOpen = 1
-    let NERDTreeMouseMode = 2
-    let NERDTreeShowHidden = 1
   " }
 
   " FZF {
@@ -296,6 +286,9 @@ endif
     xmap af <Plug>(coc-funcobj-a)
     omap if <Plug>(coc-funcobj-i)
     omap af <Plug>(coc-funcobj-a)
+
+    " Toggle coc-explorer
+    nmap <leader>e :CocCommand explorer<CR>
   " }
   endif
 " }
