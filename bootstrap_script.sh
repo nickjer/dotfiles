@@ -253,6 +253,14 @@ function doIt() {
   local url="${github}/releases/download/${version}/jira-linux-amd64"
   curl -L "${url}" -o ~/bin/jira && \
     chmod 755 ~/bin/jira
+
+  # Download/install sd
+  echo "Downloading and installing 'sd'"
+  local github="$(githubUrl chmln sd)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/sd-${version}-x86_64-unknown-linux-musl"
+  curl -L "${url}" -o ~/bin/sd && \
+    chmod 755 ~/bin/sd
 }
 
 function githubUrl {
