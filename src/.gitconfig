@@ -10,7 +10,7 @@
   cachetextconv = false
 
 [diff "pe_config_yaml"]
-  xfuncname = "^- code: (.+)$"
+  xfuncname = "^[- ] code: (.+)$"
 
 [diff "pe_hiscox_yaml"]
   xfuncname = "^  (\\S+):$"

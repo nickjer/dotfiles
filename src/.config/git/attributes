@@ -3,4 +3,5 @@
 *.rake    diff=ruby
 
 lib/seeds/**/*.yml     diff=pe_config_yaml
+lib/seeds/**/*.yaml    diff=pe_config_yaml
 lib/seeds/hiscox/*.yml diff=pe_hiscox_yaml
