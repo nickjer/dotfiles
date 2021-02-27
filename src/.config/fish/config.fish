@@ -7,6 +7,7 @@ if status --is-login
   # support chruby
   if test -d ~/.chruby
     set -x PATH ~/.chruby/bin $PATH
+    set -x CHRUBY_ROOT ~/.chruby
     source ~/.chruby/share/chruby/chruby.fish
   end
 
