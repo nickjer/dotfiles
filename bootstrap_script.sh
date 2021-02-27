@@ -235,6 +235,17 @@ function installChruby() {
   )
   rm -fr "${tmp}"
 
+  local github="$(githubUrl JeanMertz chruby-fish)"
+  local version="master"
+  local url="${github}/archive/${version}.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}"
+    curl -L "${url}" | tar xz --strip-components=1
+    PREFIX="${HOME}/.chruby" make install
+  )
+  rm -fr "${tmp}"
+
   local github="$(githubUrl postmodern ruby-install)"
   local version="master"
   local url="${github}/archive/${version}.tar.gz"
@@ -251,6 +262,8 @@ function installChruby() {
 function installRuby() {
   echo "Installing ruby..."
   export PATH="${HOME}/.chruby/bin:${PATH}"
+  source "$HOME/.chruby/share/chruby/chruby.sh"
+  chruby ruby
   ruby-install --no-install-deps --latest ruby
   echo "Done installing ruby!"
 }
