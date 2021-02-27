@@ -4,23 +4,32 @@ if status --is-login
     set -x PATH ~/bin $PATH
   end
 
-  # support chruby
+  # chruby
   if test -d ~/.chruby
     set -x PATH ~/.chruby/bin $PATH
     set -x CHRUBY_ROOT ~/.chruby
     source ~/.chruby/share/chruby/chruby.fish
   end
 
-  # support yarn
+  # yarn
   if test -d ~/.yarn
     set -x PATH ~/.yarn/bin $PATH
   end
 
-  # support cargo
+  # cargo
   if test -d ~/.cargo
     set -x PATH ~/.cargo/bin $PATH
   end
 end
+
+# Fix issue with QT applications and scaling
+set -x QT_AUTO_SCREEN_SCALE_FACTOR 1
+
+# Disable spring if used in Ruby project
+set -x DISABLE_SPRING true
+
+# Set editor
+set -x EDITOR nvim
 
 # Vim keybindings
 fish_vi_key_bindings

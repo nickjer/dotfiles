@@ -328,5 +328,5 @@ echo "Bootstrapping vim..."
 
 # Download/install coc.nvim extensions
 "${HOME}/bin/nvim" \
-  '+CocInstall -sync coc-explorer coc-git coc-json coc-pairs coc-rls coc-sh coc-snippets coc-solargraph' \
+  '+CocInstall -sync coc-explorer coc-fish coc-git coc-json coc-pairs coc-rls coc-sh coc-snippets coc-solargraph' \
   '+qall'
