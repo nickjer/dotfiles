@@ -37,11 +37,3 @@ fi
 if [ -d "$HOME/.cargo" ] ; then
   PATH="$HOME/.cargo/bin:$PATH"
 fi
-
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-  # include .bashrc if it exists
-  if [ -f "$HOME/.bashrc" ]; then
-    . "$HOME/.bashrc"
-  fi
-fi

@@ -2,6 +2,13 @@
 
 set -exo pipefail
 
+# Install fish if missing
+if ! command -v fish &> /dev/null ; then
+  sudo apt-add-repository ppa:fish-shell/release-3
+  sudo apt-get update
+  sudo apt-get install fish
+fi
+
 # Install make if missing
 if ! command -v make &> /dev/null ; then
   sudo apt install -y make
@@ -42,14 +49,6 @@ if ! command -v xsel &> /dev/null ; then
   sudo apt install -y xsel
 fi
 
-# Install bash-it if missing
-BASH_IT="${HOME}/.bash_it"
-if [[ ! -f "${BASH_IT}/bash_it.sh" ]] ; then
-  echo "Installing bash-it..."
-  git clone --depth=1 https://github.com/Bash-it/bash-it.git "${BASH_IT}"
-  "${BASH_IT}/install.sh" --silent --no-modify-config
-fi
-
 # Copy over dotfiles
 (
   cd src
@@ -71,49 +70,7 @@ fi
   done
 )
 
-set +exo
-source "${BASH_IT}/bash_it.sh"
-set -exo pipefail
-
 function doIt() {
-  set +exo
-  # Update bash-it
-  bash-it update dev
-  # Enable bash helpers
-  bash-it enable alias \
-    bundler \
-    curl \
-    docker \
-    docker-compose \
-    general \
-    git \
-    vim
-  bash-it enable plugin \
-    alias-completion \
-    base \
-    docker-compose \
-    docker \
-    edit-mode-vi \
-    fzf \
-    git \
-    history \
-    history-search \
-    nvm
-  bash-it enable completion \
-    bash-it \
-    bundler \
-    cargo \
-    docker \
-    docker-compose \
-    gem \
-    git \
-    npm \
-    nvm \
-    rake \
-    rustup \
-    system
-  set -exo pipefail
-
   # Download/install neovim
   echo "Downloading and installing 'neovim'"
   local github="$(githubUrl neovim neovim)"
