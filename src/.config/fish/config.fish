@@ -46,5 +46,16 @@ starship init fish | source
 # Define abbreviations
 if status --is-interactive
   abbr --add --global vim 'nvim'
-  abbr --global open 'open &> /dev/null'
+  abbr --add --global open 'open &> /dev/null'
+
+  # git
+  abbr --add --global gc 'git commit --verbose'
+  abbr --add --global gcm 'git commit --verbose --message'
+  abbr --add --global gco 'git checkout'
+  abbr --add --global gcb 'git checkout -b'
+  abbr --add --global gd 'git diff'
+  abbr --add --global gl 'git pull'
+  abbr --add --global gp 'git push'
+  abbr --add --global gs 'git status'
+  abbr --add --global gg 'git log --graph --pretty=format:'\''%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative'
 end
