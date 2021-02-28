@@ -264,30 +264,31 @@ function installRuby() {
   export PATH="${HOME}/.chruby/bin:${PATH}"
   source "$HOME/.chruby/share/chruby/chruby.sh"
   chruby ruby
-  ruby-install --no-install-deps --latest ruby
+  # ruby-install --no-install-deps --latest ruby
   echo "Done installing ruby!"
 }
 
-function installNvm() {
-  echo "Installing nvm..."
-  local github="$(githubUrl nvm-sh nvm)"
+function installFnm() {
+  # Download/install node version manager
+  echo "Downloading and installing 'fnm'"
+  local github="$(githubUrl Schniz fnm)"
   local version="$(getVersion "${github}")"
-  local url="${github}/archive/${version}.tar.gz"
+  local url="${github}/releases/download/${version}/fnm-linux.zip"
   local tmp="$(mktemp -d)"
   (
-    export PROFILE=/dev/null
-    cd "${tmp}"
-    curl -L "${url}" | tar xz --strip-components=1 && bash install.sh
+    cd "${tmp}" && \
+      curl -L "${url}" -o fnm-linux.zip && \
+      unzip fnm-linux.zip && \
+      chmod 755 fnm && \
+      mv fnm ~/bin
   )
   rm -fr "${tmp}"
-  echo "Done installing nvm!"
+  echo "Done installing fnm!"
 }
 
 function installNode() {
   echo "Installing node..."
-  export NVM_DIR="${HOME}/.nvm"
-  source "${NVM_DIR}/nvm.sh"
-  nvm install --lts
+  ~/bin/fnm install --lts
   echo "Done installing node!"
 }
 
@@ -297,7 +298,7 @@ function installYarn() {
   echo "Done installing yarn!"
 }
 
-# Install chruby if missing
+# Install a ruby version manager
 installChruby
 
 # Install ruby if missing
@@ -305,10 +306,8 @@ if ! command -v ruby &> /dev/null ; then
   installRuby
 fi
 
-# Install nvm if missing
-if [[ ! -d "${HOME}/.nvm" ]] ; then
-  installNvm
-fi
+# Install a node version manager
+installFnm
 
 # Install node if missing
 if ! command -v node &> /dev/null ; then
