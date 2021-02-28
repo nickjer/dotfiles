@@ -46,4 +46,5 @@ starship init fish | source
 # Define abbreviations
 if status --is-interactive
   abbr --add --global vim 'nvim'
+  abbr --global open 'open &> /dev/null'
 end
