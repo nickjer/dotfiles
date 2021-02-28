@@ -257,14 +257,15 @@ function installChruby() {
   )
   rm -fr "${tmp}"
   echo "Done installing chruby!"
+
+  source "$HOME/.chruby/share/chruby/chruby.sh"
+  chruby ruby
 }
 
 function installRuby() {
   echo "Installing ruby..."
   export PATH="${HOME}/.chruby/bin:${PATH}"
-  source "$HOME/.chruby/share/chruby/chruby.sh"
-  chruby ruby
-  # ruby-install --no-install-deps --latest ruby
+  ruby-install --no-install-deps --latest ruby
   echo "Done installing ruby!"
 }
 
@@ -284,6 +285,8 @@ function installFnm() {
   )
   rm -fr "${tmp}"
   echo "Done installing fnm!"
+
+  eval "$(~/bin/fnm env)"
 }
 
 function installNode() {
