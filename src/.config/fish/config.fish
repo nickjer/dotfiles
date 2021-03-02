@@ -59,4 +59,7 @@ if status --is-interactive
   abbr --add --global gp 'git push'
   abbr --add --global gs 'git status'
   abbr --add --global gg 'git log --graph --pretty=format:'\''%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative'
+
+  # docker-compose
+  abbr --add --global dco 'docker-compose'
 end
