@@ -1,6 +1,13 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 set -exo pipefail
+
+# Install fish if missing
+if ! command -v fish &> /dev/null ; then
+  sudo apt-add-repository ppa:fish-shell/release-3
+  sudo apt-get update
+  sudo apt-get install fish
+fi
 
 # Install make if missing
 if ! command -v make &> /dev/null ; then
@@ -42,14 +49,6 @@ if ! command -v xsel &> /dev/null ; then
   sudo apt install -y xsel
 fi
 
-# Install bash-it if missing
-BASH_IT="${HOME}/.bash_it"
-if [[ ! -f "${BASH_IT}/bash_it.sh" ]] ; then
-  echo "Installing bash-it..."
-  git clone --depth=1 https://github.com/Bash-it/bash-it.git "${BASH_IT}"
-  "${BASH_IT}/install.sh" --silent --no-modify-config
-fi
-
 # Copy over dotfiles
 (
   cd src
@@ -71,49 +70,7 @@ fi
   done
 )
 
-set +exo
-source "${BASH_IT}/bash_it.sh"
-set -exo pipefail
-
 function doIt() {
-  set +exo
-  # Update bash-it
-  bash-it update dev
-  # Enable bash helpers
-  bash-it enable alias \
-    bundler \
-    curl \
-    docker \
-    docker-compose \
-    general \
-    git \
-    vim
-  bash-it enable plugin \
-    alias-completion \
-    base \
-    docker-compose \
-    docker \
-    edit-mode-vi \
-    fzf \
-    git \
-    history \
-    history-search \
-    nvm
-  bash-it enable completion \
-    bash-it \
-    bundler \
-    cargo \
-    docker \
-    docker-compose \
-    gem \
-    git \
-    npm \
-    nvm \
-    rake \
-    rustup \
-    system
-  set -exo pipefail
-
   # Download/install neovim
   echo "Downloading and installing 'neovim'"
   local github="$(githubUrl neovim neovim)"
@@ -278,6 +235,17 @@ function installChruby() {
   )
   rm -fr "${tmp}"
 
+  local github="$(githubUrl JeanMertz chruby-fish)"
+  local version="master"
+  local url="${github}/archive/${version}.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}"
+    curl -L "${url}" | tar xz --strip-components=1
+    PREFIX="${HOME}/.chruby" make install
+  )
+  rm -fr "${tmp}"
+
   local github="$(githubUrl postmodern ruby-install)"
   local version="master"
   local url="${github}/archive/${version}.tar.gz"
@@ -289,6 +257,9 @@ function installChruby() {
   )
   rm -fr "${tmp}"
   echo "Done installing chruby!"
+
+  source "$HOME/.chruby/share/chruby/chruby.sh"
+  chruby ruby
 }
 
 function installRuby() {
@@ -298,26 +269,29 @@ function installRuby() {
   echo "Done installing ruby!"
 }
 
-function installNvm() {
-  echo "Installing nvm..."
-  local github="$(githubUrl nvm-sh nvm)"
+function installFnm() {
+  # Download/install node version manager
+  echo "Downloading and installing 'fnm'"
+  local github="$(githubUrl Schniz fnm)"
   local version="$(getVersion "${github}")"
-  local url="${github}/archive/${version}.tar.gz"
+  local url="${github}/releases/download/${version}/fnm-linux.zip"
   local tmp="$(mktemp -d)"
   (
-    export PROFILE=/dev/null
-    cd "${tmp}"
-    curl -L "${url}" | tar xz --strip-components=1 && bash install.sh
+    cd "${tmp}" && \
+      curl -L "${url}" -o fnm-linux.zip && \
+      unzip fnm-linux.zip && \
+      chmod 755 fnm && \
+      mv fnm ~/bin
   )
   rm -fr "${tmp}"
-  echo "Done installing nvm!"
+  echo "Done installing fnm!"
+
+  eval "$(~/bin/fnm env)"
 }
 
 function installNode() {
   echo "Installing node..."
-  export NVM_DIR="${HOME}/.nvm"
-  source "${NVM_DIR}/nvm.sh"
-  nvm install --lts
+  ~/bin/fnm install --lts
   echo "Done installing node!"
 }
 
@@ -327,7 +301,7 @@ function installYarn() {
   echo "Done installing yarn!"
 }
 
-# Install chruby if missing
+# Install a ruby version manager
 installChruby
 
 # Install ruby if missing
@@ -335,10 +309,8 @@ if ! command -v ruby &> /dev/null ; then
   installRuby
 fi
 
-# Install nvm if missing
-if [[ ! -d "${HOME}/.nvm" ]] ; then
-  installNvm
-fi
+# Install a node version manager
+installFnm
 
 # Install node if missing
 if ! command -v node &> /dev/null ; then
@@ -358,5 +330,14 @@ echo "Bootstrapping vim..."
 
 # Download/install coc.nvim extensions
 "${HOME}/bin/nvim" \
-  '+CocInstall -sync coc-explorer coc-git coc-json coc-pairs coc-rls coc-sh coc-snippets coc-solargraph' \
+  "+CocInstall -sync \
+    coc-explorer \
+    coc-fish \
+    coc-git \
+    coc-json \
+    coc-pairs \
+    coc-rls \
+    coc-sh \
+    coc-snippets \
+    coc-solargraph" \
   '+qall'
