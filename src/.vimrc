@@ -153,7 +153,6 @@ endif
   Plug 'tpope/vim-bundler'
   Plug 'ruanyl/vim-gh-line'
   Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'myusuf3/numbers.vim'
   Plug 'scrooloose/nerdcommenter'
   Plug 'junegunn/fzf', { 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
@@ -195,10 +194,6 @@ endif
 
   " IndentGuides {
     let g:indent_guides_enable_on_vim_startup = 1
-  " }
-
-  " numbers.vim {
-    nnoremap <F3> :NumbersToggle<CR>
   " }
 
   " NERDCommenter {
