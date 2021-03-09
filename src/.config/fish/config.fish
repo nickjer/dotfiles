@@ -63,3 +63,8 @@ if status --is-interactive
   # docker-compose
   abbr --add --global dco 'docker-compose'
 end
+
+# Set title to current working directory
+function fish_title
+  basename (pwd)
+end
