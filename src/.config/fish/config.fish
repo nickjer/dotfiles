@@ -64,7 +64,10 @@ if status --is-interactive
   abbr --add --global dco 'docker-compose'
 end
 
-# Set title to current working directory
+# Set fzf keybindings
+fzf_key_bindings
+
+# Set title of terminal
 function fish_title
   basename (pwd)
 end

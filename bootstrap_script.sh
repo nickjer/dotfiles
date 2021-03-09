@@ -152,7 +152,8 @@ function doIt() {
   (
     cd "${tmp}" && \
       curl -L "${url}" | tar xz --strip-components=1 && \
-      cat shell/completion.bash shell/key-bindings.bash > ~/.fzf.bash
+      mkdir -p ~/.config/fish/conf.d && \
+      cp shell/key-bindings.fish ~/.config/fish/conf.d/fzf.fish
   )
   rm -fr "${tmp}"
 
