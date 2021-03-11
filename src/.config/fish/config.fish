@@ -48,6 +48,10 @@ if status --is-interactive
   abbr --add --global vim 'nvim'
   abbr --add --global open 'open &> /dev/null'
 
+  # bundle
+  abbr --add --global bi 'bundle install'
+  abbr --add --global be 'bundle exec'
+
   # git
   abbr --add --global ga 'git add'
   abbr --add --global gc 'git commit --verbose'
