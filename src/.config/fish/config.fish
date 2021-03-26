@@ -54,6 +54,7 @@ if status --is-interactive
 
   # git
   abbr --add --global ga 'git add'
+  abbr --add --global gb 'git branch'
   abbr --add --global gc 'git commit --verbose'
   abbr --add --global gcm 'git commit --verbose --message'
   abbr --add --global gco 'git checkout'
