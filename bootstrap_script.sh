@@ -128,6 +128,7 @@ function doIt() {
     cd "${tmp}" && \
       curl -L "${url}" | tar xz --strip-components=1 && \
       mv xh ~/bin && \
+      rm ~/bin/xhs && \
       ln -s ~/bin/xh ~/bin/xhs
   )
   rm -fr "${tmp}"
