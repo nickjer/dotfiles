@@ -92,6 +92,19 @@ function doIt() {
   )
   rm -fr "${tmp}"
 
+  # Download/install yayo
+  echo "Downloading and installing 'yayo'"
+  local github="$(githubUrl nickjer yayo)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/yayo-${version}-x86_64-unknown-linux-gnu.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz && \
+      mv yayo ~/bin
+  )
+  rm -fr "${tmp}"
+
   # Download/install ripgrep
   echo "Downloading and installing 'ripgrep'"
   local github="$(githubUrl BurntSushi ripgrep)"
