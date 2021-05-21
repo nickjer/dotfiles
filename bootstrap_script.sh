@@ -234,6 +234,22 @@ function doIt() {
   local url="${github}/releases/download/${version}/sd-${version}-x86_64-unknown-linux-musl"
   curl -L "${url}" -o ~/bin/sd && \
     chmod 755 ~/bin/sd
+
+  # Download/install exa
+  echo "Downloading and installing 'exa'"
+  local github="$(githubUrl ogham exa)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/exa-linux-x86_64-${version}.zip"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" -o exa-linux-x86_64.zip && \
+      unzip exa-linux-x86_64.zip && \
+      chmod 755 bin/exa && \
+      mv bin/exa ~/bin
+  )
+  rm -fr "${tmp}"
+  exit 1
 }
 
 function githubUrl {
