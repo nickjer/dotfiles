@@ -246,10 +246,11 @@ function doIt() {
       curl -L "${url}" -o exa-linux-x86_64.zip && \
       unzip exa-linux-x86_64.zip && \
       chmod 755 bin/exa && \
-      mv bin/exa ~/bin
+      mv bin/exa ~/bin && \
+      mkdir -p ~/.config/fish/conf.d && \
+      mv completions/exa.fish ~/.config/fish/conf.d/exa.fish
   )
   rm -fr "${tmp}"
-  exit 1
 }
 
 function githubUrl {

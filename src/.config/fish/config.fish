@@ -69,6 +69,7 @@ if status --is-interactive
   abbr --add --global dco 'docker-compose'
 
   # exa
+  abbr --add --global ls 'exa'
   abbr --add --global ll 'exa --long'
   abbr --add --global la 'exa --all --long'
   abbr --add --global tree 'exa --tree'
