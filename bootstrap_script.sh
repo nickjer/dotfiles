@@ -2,6 +2,8 @@
 
 set -exo pipefail
 
+mkdir -p ~/bin
+
 # Install fish if missing
 if ! command -v fish &> /dev/null ; then
   sudo apt-add-repository ppa:fish-shell/release-3
@@ -141,7 +143,7 @@ function doIt() {
     cd "${tmp}" && \
       curl -L "${url}" | tar xz --strip-components=1 && \
       mv xh ~/bin && \
-      rm ~/bin/xhs && \
+      rm -f ~/bin/xhs && \
       ln -s ~/bin/xh ~/bin/xhs
   )
   rm -fr "${tmp}"
@@ -305,7 +307,7 @@ function installChruby() {
   echo "Done installing chruby!"
 
   source "$HOME/.chruby/share/chruby/chruby.sh"
-  chruby ruby
+  chruby ruby || true
 }
 
 function installRuby() {
