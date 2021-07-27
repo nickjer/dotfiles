@@ -46,7 +46,7 @@ starship init fish | source
 # Define abbreviations
 if status --is-interactive
   abbr --add --global vim 'nvim'
-  abbr --add --global open 'open &> /dev/null'
+  abbr --add --global open 'xdg-open &> /dev/null'
 
   # bundle
   abbr --add --global bi 'bundle install'
