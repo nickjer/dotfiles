@@ -77,7 +77,7 @@ function doIt() {
   echo "Downloading and installing 'neovim'"
   local github="$(githubUrl neovim neovim)"
   local url="${github}/releases/download/nightly/nvim.appimage"
-  curl -L "${url}" -o ~/bin/nvim && \
+  curl -L "${url}" -s -S -f -o ~/bin/nvim && \
     chmod 755 ~/bin/nvim
   rm -fr "${tmp}"
 
