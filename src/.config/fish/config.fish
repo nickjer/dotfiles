@@ -68,11 +68,11 @@ if status --is-interactive
   # docker-compose
   abbr --add --global dco 'docker-compose'
 
-  # exa
-  abbr --add --global ls 'exa'
-  abbr --add --global ll 'exa --long'
-  abbr --add --global la 'exa --all --long'
-  abbr --add --global tree 'exa --tree'
+  # lsd
+  abbr --add --global ls 'lsd'
+  abbr --add --global ll 'lsd --long'
+  abbr --add --global la 'lsd --all --long'
+  abbr --add --global tree 'lsd --tree'
 end
 
 # Set fzf keybindings

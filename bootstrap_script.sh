@@ -237,20 +237,16 @@ function doIt() {
   curl -L "${url}" -o ~/bin/sd && \
     chmod 755 ~/bin/sd
 
-  # Download/install exa
-  echo "Downloading and installing 'exa'"
-  local github="$(githubUrl ogham exa)"
+  # Download/install lsd
+  echo "Downloading and installing 'lsd'"
+  local github="$(githubUrl Peltoche lsd)"
   local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/exa-linux-x86_64-${version}.zip"
+  local url="${github}/releases/download/${version}/lsd-${version}-x86_64-unknown-linux-gnu.tar.gz"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
-      curl -L "${url}" -o exa-linux-x86_64.zip && \
-      unzip exa-linux-x86_64.zip && \
-      chmod 755 bin/exa && \
-      mv bin/exa ~/bin && \
-      mkdir -p ~/.config/fish/conf.d && \
-      mv completions/exa.fish ~/.config/fish/conf.d/exa.fish
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      mv lsd ~/bin
   )
   rm -fr "${tmp}"
 }
