@@ -73,13 +73,19 @@ fi
 )
 
 function doIt() {
+  # Download/install wezterm
+  echo "Downloading and installing 'wezterm'"
+  local github="$(githubUrl wez wezterm)"
+  local url="${github}/releases/download/nightly/WezTerm-nightly-Ubuntu18.04.AppImage"
+  curl -L "${url}" -s -S -f -o ~/bin/wezterm && \
+    chmod 755 ~/bin/wezterm
+
   # Download/install neovim
   echo "Downloading and installing 'neovim'"
   local github="$(githubUrl neovim neovim)"
   local url="${github}/releases/download/nightly/nvim.appimage"
   curl -L "${url}" -s -S -f -o ~/bin/nvim && \
     chmod 755 ~/bin/nvim
-  rm -fr "${tmp}"
 
   # Download/install starship
   echo "Downloading and installing 'starship'"
