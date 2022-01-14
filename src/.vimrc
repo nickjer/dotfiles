@@ -184,6 +184,7 @@ endif
     let g:ale_ruby_rubocop_executable = 'bundle'
     let g:ale_ruby_reek_executable = 'bundle'
     let g:ale_disable_lsp = 1
+    let b:ale_fixers = {'ruby': ['rubocop']}
 
     " Map movement through errors with wrapping
     nmap <silent> <C-k> <Plug>(ale_previous_wrap)
