@@ -387,6 +387,7 @@ echo "Bootstrapping vim..."
     coc-json \
     coc-pairs \
     coc-rls \
+    coc-rust-analyzer \
     coc-sh \
     coc-snippets \
     coc-solargraph" \
