@@ -106,16 +106,16 @@ function doIt() {
   )
   rm -fr "${tmp}"
 
-  # Download/install fltr
-  echo "Downloading and installing 'fltr'"
-  local github="$(githubUrl nickjer fltr)"
+  # Download/install fltn
+  echo "Downloading and installing 'fltn'"
+  local github="$(githubUrl nickjer fltn)"
   local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/fltr-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local url="${github}/releases/download/${version}/fltn-${version}-x86_64-unknown-linux-musl.tar.gz"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
       curl -L "${url}" | tar xz && \
-      mv fltr ~/bin
+      mv fltn ~/bin
   )
   rm -fr "${tmp}"
 
