@@ -73,13 +73,6 @@ fi
 )
 
 function doIt() {
-  # Download/install wezterm
-  echo "Downloading and installing 'wezterm'"
-  local github="$(githubUrl wez wezterm)"
-  local url="${github}/releases/download/nightly/WezTerm-nightly-Ubuntu18.04.AppImage"
-  curl -L "${url}" -s -S -f -o ~/bin/wezterm && \
-    chmod 755 ~/bin/wezterm
-
   # Download/install neovim
   echo "Downloading and installing 'neovim'"
   local github="$(githubUrl neovim neovim)"
@@ -110,6 +103,19 @@ function doIt() {
     cd "${tmp}" && \
       curl -L "${url}" | tar xz && \
       mv yayo ~/bin
+  )
+  rm -fr "${tmp}"
+
+  # Download/install fltr
+  echo "Downloading and installing 'fltr'"
+  local github="$(githubUrl nickjer fltr)"
+  local version="$(getVersion "${github}")"
+  local url="${github}/releases/download/${version}/fltr-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz && \
+      mv fltr ~/bin
   )
   rm -fr "${tmp}"
 
@@ -151,19 +157,6 @@ function doIt() {
       mv xh ~/bin && \
       rm -f ~/bin/xhs && \
       ln -s ~/bin/xh ~/bin/xhs
-  )
-  rm -fr "${tmp}"
-
-  # Download/install gron
-  echo "Downloading and installing 'gron'"
-  local github="$(githubUrl tomnomnom gron)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/gron-linux-amd64-${version#v}.tgz"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" && \
-      curl -L "${url}" | tar xz && \
-      mv gron ~/bin
   )
   rm -fr "${tmp}"
 
