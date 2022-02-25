@@ -223,9 +223,12 @@ function doIt() {
   echo "Downloading and installing 'tldr'"
   local github="$(githubUrl dbrgn tealdeer)"
   local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/tldr-linux-x86_64-musl"
+  local url="${github}/releases/download/${version}/tealdeer-linux-x86_64-musl"
   curl -L "${url}" -o ~/bin/tldr && \
     chmod 755 ~/bin/tldr
+  local url="${github}/releases/download/${version}/completions_fish"
+  mkdir -p ~/.config/fish/conf.d && \
+    curl -L "${url}" -o ~/.config/fish/conf.d/tldr.fish
 
   # Download/install jira
   echo "Downloading and installing 'jira'"
