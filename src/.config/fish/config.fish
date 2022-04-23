@@ -9,7 +9,8 @@ if status --is-login
     set -x PATH ~/.chruby/bin $PATH
     set -x CHRUBY_ROOT ~/.chruby
     source ~/.chruby/share/chruby/chruby.fish
-    chruby ruby
+    source ~/.chruby/share/chruby/auto.fish
+    # Set default ruby version in `~/.ruby-version`
   end
 
   # yarn
