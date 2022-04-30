@@ -38,6 +38,9 @@ set -x DISABLE_SPRING true
 # Set editor
 set -x EDITOR nvim
 
+# Set BP app root
+set -x BP_APP_ROOT $HOME/Development
+
 # Vim keybindings
 fish_vi_key_bindings
 
