@@ -206,6 +206,7 @@ function doIt() {
   local url="${github}/releases/download/${version}/tealdeer-linux-x86_64-musl"
   curl -L "${url}" -o ~/bin/tldr && \
     chmod 755 ~/bin/tldr
+  ~/bin/tldr --update
   local url="${github}/releases/download/${version}/completions_fish"
   mkdir -p ~/.config/fish/conf.d && \
     curl -L "${url}" -o ~/.config/fish/conf.d/tldr.fish
