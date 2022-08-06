@@ -79,9 +79,6 @@ if status --is-interactive
   abbr --add --global tree 'lsd --tree'
 end
 
-# Set fzf keybindings
-fzf_key_bindings
-
 # Set title of terminal
 function fish_title
   basename (pwd)

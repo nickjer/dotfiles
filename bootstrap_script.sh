@@ -173,19 +173,6 @@ function doIt() {
   )
   rm -fr "${tmp}"
 
-  # Download/install fzf scripts
-  echo "Downloading and installing 'fzf scripts'"
-  local github="$(githubUrl junegunn fzf)"
-  local url="${github}/archive/master.tar.gz"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" && \
-      curl -L "${url}" | tar xz --strip-components=1 && \
-      mkdir -p ~/.config/fish/conf.d && \
-      cp shell/key-bindings.fish ~/.config/fish/conf.d/fzf.fish
-  )
-  rm -fr "${tmp}"
-
   # Download/install fd
   echo "Downloading and installing 'fd'"
   local github="$(githubUrl sharkdp fd)"
@@ -369,6 +356,13 @@ if ! command -v yarn &> /dev/null ; then
 fi
 
 doIt
+
+# Install fish plugins using the fisher tool
+echo "Installing fish plugins..."
+fish -c '
+  curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher ;
+  fisher install PatrickF1/fzf.fish
+'
 
 # Install vim plugins
 echo "Bootstrapping vim..."
