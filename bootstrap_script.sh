@@ -208,8 +208,8 @@ function doIt() {
     chmod 755 ~/bin/tldr
   ~/bin/tldr --update
   local url="${github}/releases/download/${version}/completions_fish"
-  mkdir -p ~/.config/fish/conf.d && \
-    curl -L "${url}" -o ~/.config/fish/conf.d/tldr.fish
+  mkdir -p ~/.config/fish/completions && \
+    curl -L "${url}" -o ~/.config/fish/completions/tldr.fish
 
   # Download/install jira
   echo "Downloading and installing 'jira'"
