@@ -33,8 +33,5 @@
   file-style = bold yellow ul
   file-decoration-style = none
 
-[merge]
-  conflictstyle = diff3
-
 [init]
   defaultBranch = main
