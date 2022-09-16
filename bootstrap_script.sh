@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -exo pipefail
+set -eo pipefail
 
 mkdir -p ~/bin
 
@@ -72,19 +72,16 @@ fi
   done
 )
 
-function doIt() {
+function installTools() {
   # Download/install neovim
   echo "Downloading and installing 'neovim'"
-  local github="$(githubUrl neovim neovim)"
-  local url="${github}/releases/download/nightly/nvim.appimage"
+  local url="$(~/bin/ghlast neovim neovim --output assets | grep 'appimage$')"
   curl -L "${url}" -s -S -f -o ~/bin/nvim && \
     chmod 755 ~/bin/nvim
 
   # Download/install starship
   echo "Downloading and installing 'starship'"
-  local github="$(githubUrl starship starship)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/starship-x86_64-unknown-linux-gnu.tar.gz"
+  local url="$(~/bin/ghlast starship starship --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -95,9 +92,7 @@ function doIt() {
 
   # Download/install yayo
   echo "Downloading and installing 'yayo'"
-  local github="$(githubUrl nickjer yayo)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/yayo-${version}-x86_64-unknown-linux-gnu.tar.gz"
+  local url="$(~/bin/ghlast nickjer yayo --output assets | grep 'x86.*gnu.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -108,9 +103,7 @@ function doIt() {
 
   # Download/install fltn
   echo "Downloading and installing 'fltn'"
-  local github="$(githubUrl nickjer fltn)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/fltn-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local url="$(~/bin/ghlast nickjer fltn --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -121,9 +114,7 @@ function doIt() {
 
   # Download/install ripgrep
   echo "Downloading and installing 'ripgrep'"
-  local github="$(githubUrl BurntSushi ripgrep)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/ripgrep-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local url="$(~/bin/ghlast BurntSushi ripgrep --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -134,9 +125,7 @@ function doIt() {
 
   # Download/install delta
   echo "Downloading and installing 'delta'"
-  local github="$(githubUrl dandavison delta)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/delta-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local url="$(~/bin/ghlast dandavison delta --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -147,9 +136,7 @@ function doIt() {
 
   # Download/install xh
   echo "Downloading and installing 'xh'"
-  local github="$(githubUrl ducaale xh)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/xh-${version}-x86_64-unknown-linux-musl.tar.gz"
+  local url="$(~/bin/ghlast ducaale xh --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -162,9 +149,7 @@ function doIt() {
 
   # Download/install fzf
   echo "Downloading and installing 'fzf'"
-  local github="$(githubUrl junegunn fzf-bin)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/fzf-${version}-linux_amd64.tgz"
+  local url="$(~/bin/ghlast junegunn fzf-bin --output assets | grep 'linux_amd64')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -175,9 +160,7 @@ function doIt() {
 
   # Download/install fd
   echo "Downloading and installing 'fd'"
-  local github="$(githubUrl sharkdp fd)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/fd-${version}-x86_64-unknown-linux-gnu.tar.gz"
+  local url="$(~/bin/ghlast sharkdp fd --output assets | grep 'x86.*gnu.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -188,9 +171,7 @@ function doIt() {
 
   # Download/install bat
   echo "Downloading and installing 'bat'"
-  local github="$(githubUrl sharkdp bat)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/bat-${version}-x86_64-unknown-linux-gnu.tar.gz"
+  local url="$(~/bin/ghlast sharkdp bat --output assets | grep 'x86.*gnu.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -201,37 +182,29 @@ function doIt() {
 
   # Download/install tldr
   echo "Downloading and installing 'tldr'"
-  local github="$(githubUrl dbrgn tealdeer)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/tealdeer-linux-x86_64-musl"
+  local url="$(~/bin/ghlast dbrgn tealdeer --output assets | grep 'x86.*musl$')"
   curl -L "${url}" -o ~/bin/tldr && \
     chmod 755 ~/bin/tldr
   ~/bin/tldr --update
-  local url="${github}/releases/download/${version}/completions_fish"
+  local url="$(~/bin/ghlast dbrgn tealdeer --output assets | grep 'completions_fish')"
   mkdir -p ~/.config/fish/completions && \
     curl -L "${url}" -o ~/.config/fish/completions/tldr.fish
 
   # Download/install jira
   echo "Downloading and installing 'jira'"
-  local github="$(githubUrl go-jira jira)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/jira-linux-amd64"
+  local url="$(~/bin/ghlast go-jira jira --output assets | grep 'linux-amd64$')"
   curl -L "${url}" -o ~/bin/jira && \
     chmod 755 ~/bin/jira
 
   # Download/install sd
   echo "Downloading and installing 'sd'"
-  local github="$(githubUrl chmln sd)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/sd-${version}-x86_64-unknown-linux-musl"
+  local url="$(~/bin/ghlast chmln sd --output assets | grep 'x86.*musl$')"
   curl -L "${url}" -o ~/bin/sd && \
     chmod 755 ~/bin/sd
 
   # Download/install lsd
   echo "Downloading and installing 'lsd'"
-  local github="$(githubUrl Peltoche lsd)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/lsd-${version}-x86_64-unknown-linux-gnu.tar.gz"
+  local url="$(~/bin/ghlast Peltoche lsd --output assets | grep 'x86.*gnu.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -241,24 +214,23 @@ function doIt() {
   rm -fr "${tmp}"
 }
 
-function githubUrl {
-  local account="${1}"
-  local project="${2}"
-  echo "https://github.com/${account}/${project}"
-}
-
-function getVersion() {
-  local github="$(echo "${1}" | sed 's/github\.com/api.github.com\/repos/')"
-  local json="$(curl -L -s -H 'Accept: application/vnd.github.v3+json' ${github}/releases)"
-  # The releases are returned in the format:
-  #     {"id":3622206,"tag_name":"hello-1.0.0.11",...}
-  # we have to extract the tag_name.
-  echo "$(echo "${json}" | sed -E -n 's/.*"tag_name":\s*"([^"]+)".*/\1/p' | head -n 1)"
+function installGhlast() {
+  # Download/install ghlast (GitHub last release lookup tool)
+  echo "Downloading and installing 'ghlast'"
+  local api="https://api.github.com/repos/nickjer/ghlast/releases/latest"
+  local url="$(curl --silent "${api}" | grep 'browser_download_url' | grep 'unknown-linux-musl' | cut --delimiter '"' --fields 4)"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl --location "${url}" | tar --extract --gzip && \
+      mv ghlast ~/bin
+  )
+  rm --force --recursive "${tmp}"
 }
 
 function installChruby() {
   echo "Installing chruby..."
-  local github="$(githubUrl postmodern chruby)"
+  local github="https://github.com/postmodern/chruby"
   local version="master"
   local url="${github}/archive/${version}.tar.gz"
   local tmp="$(mktemp -d)"
@@ -269,7 +241,7 @@ function installChruby() {
   )
   rm -fr "${tmp}"
 
-  local github="$(githubUrl JeanMertz chruby-fish)"
+  local github="https://github.com/JeanMertz/chruby-fish"
   local version="master"
   local url="${github}/archive/${version}.tar.gz"
   local tmp="$(mktemp -d)"
@@ -280,7 +252,7 @@ function installChruby() {
   )
   rm -fr "${tmp}"
 
-  local github="$(githubUrl postmodern ruby-install)"
+  local github="https://github.com/postmodern/ruby-install"
   local version="master"
   local url="${github}/archive/${version}.tar.gz"
   local tmp="$(mktemp -d)"
@@ -306,9 +278,7 @@ function installRuby() {
 function installFnm() {
   # Download/install node version manager
   echo "Downloading and installing 'fnm'"
-  local github="$(githubUrl Schniz fnm)"
-  local version="$(getVersion "${github}")"
-  local url="${github}/releases/download/${version}/fnm-linux.zip"
+  local url="$(~/bin/ghlast Schniz fnm --output assets | grep 'linux')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
@@ -335,6 +305,9 @@ function installYarn() {
   echo "Done installing yarn!"
 }
 
+# Install GitHub last release lookup tool
+installGhlast
+
 # Install a ruby version manager
 installChruby
 
@@ -356,7 +329,7 @@ if ! command -v yarn &> /dev/null ; then
   installYarn
 fi
 
-doIt
+installTools
 
 # Install fish plugins using the fisher tool
 echo "Installing fish plugins..."
