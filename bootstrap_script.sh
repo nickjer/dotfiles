@@ -350,7 +350,6 @@ echo "Bootstrapping vim..."
     coc-git \
     coc-json \
     coc-pairs \
-    coc-rls \
     coc-rust-analyzer \
     https://github.com/polypus74/trusty_rusty_snippets \
     coc-sh \
