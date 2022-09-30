@@ -239,23 +239,23 @@ endif
   " }
 
   if has('nvim')
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
+    " function! s:check_back_space() abort
+    "   let col = col('.') - 1
+    "   return !col || getline('.')[col - 1]  =~ '\s'
+    " endfunction
 
-    " Insert <tab> when previous text is space, refresh completion if not.
-    inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+    " " Insert <tab> when previous text is space, refresh completion if not.
+    " inoremap <silent><expr> <TAB>
+    "   \ coc#pum#visible() ? coc#pum#next(1):
+    "   \ <SID>check_back_space() ? "\<Tab>" :
+    "   \ coc#refresh()
+    " inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-    " Use <c-space> to trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
+    " " Use <c-space> to trigger completion.
+    " inoremap <silent><expr> <c-space> coc#refresh()
 
-    " Use <CR> to confirm completion
-    inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+    " " Use <CR> to confirm completion
+    " inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
     " Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
