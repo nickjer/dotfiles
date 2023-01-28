@@ -6,7 +6,11 @@
     "steep": {
       "command": "steep",
       "args": ["langserver"],
-      "filetypes": ["ruby"]
+      "filetypes": ["ruby"],
+      "initializationOptions": {},
+      "requireRootPattern": true,
+      "settings": {},
+      "rootPatterns": ["sig"]
     }
   }
 }
