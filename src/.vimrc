@@ -111,6 +111,7 @@ set shell=/bin/bash
   set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 
   autocmd BufNewFile,BufRead *.md set filetype=markdown
+  autocmd BufNewFile,BufRead *.rbs set filetype=rbs
 " }
 
 " Key (re)Mappings {
@@ -146,6 +147,7 @@ endif
   Plug 'morhetz/gruvbox'
   Plug 'vim-airline/vim-airline'
   Plug 'w0rp/ale'
+  Plug 'jlcrochet/vim-rbs'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'

@@ -1,5 +1,12 @@
 {
   "diagnostic.displayByAle": true,
   "rust-analyzer.diagnostics.disabled": ["mismatched-arg-count"],
-  "rust-analyzer.inlayHints.maxLength": null
+  "rust-analyzer.inlayHints.maxLength": null,
+  "languageserver": {
+    "steep": {
+      "command": "steep",
+      "args": ["langserver"],
+      "filetypes": ["ruby"]
+    }
+  }
 }
