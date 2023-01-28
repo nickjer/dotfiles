@@ -146,7 +146,7 @@ endif
   call plug#begin('~/.vim/plugged')  " specify dir for plugins
   Plug 'morhetz/gruvbox'
   Plug 'vim-airline/vim-airline'
-  Plug 'w0rp/ale'
+  Plug 'dense-analysis/ale'
   Plug 'jlcrochet/vim-rbs'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
