@@ -160,7 +160,7 @@ endif
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'justinmk/vim-sneak'
-  Plug 'pacha/vem-tabline'
+  Plug 'romgrk/barbar.nvim'
   Plug 'sheerun/vim-polyglot'
   if has('nvim')
     Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
@@ -235,14 +235,6 @@ endif
   " html5.vim {
   " }
 
-  " Vem Tabline {
-    nmap <leader>p <Plug>vem_prev_buffer-
-    nmap <leader>n <Plug>vem_next_buffer-
-
-    " Vim's buffer number is shown
-    let g:vem_tabline_show_number = "buffnr"
-  " }
-
   " Sneak {
     " Replace f and t with one-character Sneak
     map f <Plug>Sneak_f
@@ -252,6 +244,32 @@ endif
 
     " Label mode
     let g:sneak#label = 1
+  " }
+
+  " barbar.nvim {
+    let bufferline = get(g:, 'bufferline', {})
+
+    " Enables / disables diagnostic symbols
+    " ERROR / WARN / INFO / HINT
+    let bufferline.diagnostics = [
+      \ {'enabled': v:true},
+      \ {'enabled': v:true},
+      \ {'enabled': v:true},
+      \ {'enabled': v:true},
+    \]
+
+    let bufferline.icons = "buffer_numbers"
+    let bufferline.icon_close_tab = '🞮'
+
+    " Move to previous/next
+    nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
+    nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+
+    " Close buffer
+    nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
+
+    " Magic buffer-picking mode
+    nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
   " }
 
   if has('nvim')
