@@ -160,6 +160,7 @@ endif
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'justinmk/vim-sneak'
+  Plug 'nvim-tree/nvim-web-devicons'
   Plug 'romgrk/barbar.nvim'
   Plug 'sheerun/vim-polyglot'
   if has('nvim')
@@ -249,17 +250,7 @@ endif
   " barbar.nvim {
     let bufferline = get(g:, 'bufferline', {})
 
-    " Enables / disables diagnostic symbols
-    " ERROR / WARN / INFO / HINT
-    let bufferline.diagnostics = [
-      \ {'enabled': v:true},
-      \ {'enabled': v:true},
-      \ {'enabled': v:true},
-      \ {'enabled': v:true},
-    \]
-
-    let bufferline.icons = "buffer_numbers"
-    let bufferline.icon_close_tab = '🞮'
+    let bufferline.icons = "buffer_number_with_icon"
 
     " Move to previous/next
     nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
