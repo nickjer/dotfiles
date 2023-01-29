@@ -158,7 +158,7 @@ endif
   Plug 'scrooloose/nerdcommenter'
   Plug 'junegunn/fzf', { 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
-  Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+  Plug 'junegunn/vim-easy-align'
   Plug 'justinmk/vim-sneak'
   Plug 'pacha/vem-tabline'
   Plug 'sheerun/vim-polyglot'
@@ -224,14 +224,23 @@ endif
     nmap <leader>fb :Buffers<CR>
   " }
 
-  " Tabularize {
-    nmap <leader>a= :Tabularize /=<CR>
-    vmap <leader>a= :Tabularize /=<CR>
-    nmap <leader>a: :Tabularize /:\zs<CR>
-    vmap <leader>a: :Tabularize /:\zs<CR>
+  " EasyAlign {
+    " Start interactive EasyAlign in visual mode (e.g. vipga)
+    xmap ga <Plug>(EasyAlign)
+
+    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+    nmap ga <Plug>(EasyAlign)
   " }
 
   " html5.vim {
+  " }
+
+  " Vem Tabline {
+    nmap <leader>p <Plug>vem_prev_buffer-
+    nmap <leader>n <Plug>vem_next_buffer-
+
+    " Vim's buffer number is shown
+    let g:vem_tabline_show_number = "buffnr"
   " }
 
   " Sneak {
