@@ -185,8 +185,13 @@ endif
     let g:ale_sign_warning = '⚠'
     let g:ale_ruby_rubocop_executable = 'bundle'
     let g:ale_ruby_reek_executable = 'bundle'
+    let g:ale_rust_cargo_use_clippy = 1
     let g:ale_disable_lsp = 1
-    let g:ale_fixers = {'ruby': ['rubocop']}
+    let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'ruby': ['rubocop'],
+    \   'rust': ['rustfmt'],
+    \}
 
     " Bind F8 to fixing problems with ALE
     nmap <F8> <Plug>(ale_fix)
