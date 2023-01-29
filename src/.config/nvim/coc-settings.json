@@ -4,8 +4,8 @@
   "rust-analyzer.inlayHints.maxLength": null,
   "languageserver": {
     "steep": {
-      "command": "steep",
-      "args": ["langserver"],
+      "command": "bundle",
+      "args": ["exec", "steep", "langserver"],
       "filetypes": ["ruby"],
       "initializationOptions": {},
       "requireRootPattern": true,
