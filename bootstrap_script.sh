@@ -349,6 +349,7 @@ echo "Bootstrapping vim..."
     coc-fish \
     coc-git \
     coc-json \
+    coc-markdownlint \
     coc-pairs \
     coc-rust-analyzer \
     https://github.com/polypus74/trusty_rusty_snippets \
