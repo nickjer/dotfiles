@@ -161,7 +161,6 @@ endif
   Plug 'junegunn/vim-easy-align'
   Plug 'justinmk/vim-sneak'
   Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'romgrk/barbar.nvim'
   Plug 'sheerun/vim-polyglot'
   if has('nvim')
     Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
@@ -245,22 +244,6 @@ endif
 
     " Label mode
     let g:sneak#label = 1
-  " }
-
-  " barbar.nvim {
-    let bufferline = get(g:, 'bufferline', {})
-
-    let bufferline.icons = "buffer_number_with_icon"
-
-    " Move to previous/next
-    nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
-    nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
-
-    " Close buffer
-    nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
-
-    " Magic buffer-picking mode
-    nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
   " }
 
   if has('nvim')
