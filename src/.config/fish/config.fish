@@ -8,8 +8,10 @@ if status --is-login
   if test -d ~/.chruby
     set -x PATH ~/.chruby/bin $PATH
     set -x CHRUBY_ROOT ~/.chruby
-    source ~/.chruby/share/chruby/chruby.fish
-    source ~/.chruby/share/chruby/auto.fish
+    source ~/.chruby/share/fish/vendor_conf.d/chruby_auto.fish
+    source ~/.chruby/share/fish/vendor_functions.d/chruby.fish
+    source ~/.chruby/share/fish/vendor_functions.d/chruby_reset.fish
+    source ~/.chruby/share/fish/vendor_functions.d/chruby_use.fish
     # Set default ruby version in `~/.ruby-version`
   end
 
