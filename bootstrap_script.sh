@@ -36,6 +36,11 @@ if ! command -v bzip2 &> /dev/null ; then
   sudo apt install -y bzip2
 fi
 
+# Install unzip if missing
+if ! command -v unzip &> /dev/null ; then
+  sudo apt install -y unzip
+fi
+
 # Install patch if missing
 if ! command -v patch &> /dev/null ; then
   sudo apt install -y patch
