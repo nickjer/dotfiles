@@ -56,6 +56,11 @@ if ! command -v xsel &> /dev/null ; then
   sudo apt install -y xsel
 fi
 
+# Install libfuse2 if missing
+if test -f "/usr/lib/x86_64-linux-gnu/libfuse.so.2" ; then
+  sudo apt install -y libfuse2
+fi
+
 # Copy over dotfiles
 (
   cd src
