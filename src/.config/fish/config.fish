@@ -43,6 +43,11 @@ set -x EDITOR nvim
 # Set BP app root
 set -x BP_APP_ROOT $HOME/Development
 
+# Set GitHub token
+if test -z "$PKG_GITHUB_COM_TOKEN"
+  set -x PKG_GITHUB_COM_TOKEN ""
+end
+
 # Vim keybindings
 fish_vi_key_bindings
 
