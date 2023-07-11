@@ -1,6 +1,19 @@
 version: "3"
 
 services:
+    caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    network_mode: host
+    volumes:
+      - $HOME/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - $HOME/caddy/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
   postgres:
     image: postgres:14
     restart: unless-stopped
@@ -52,3 +65,6 @@ volumes:
     driver: local
   es_data:
     driver: local
+  caddy_data:
+    driver: local
+  caddy_config:
