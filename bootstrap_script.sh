@@ -159,7 +159,7 @@ function installTools() {
 
   # Download/install fzf
   echo "Downloading and installing 'fzf'"
-  local url="$(~/bin/ghlast junegunn fzf-bin --output assets | grep 'linux_amd64')"
+  local url="$(~/bin/ghlast junegunn fzf --output assets | grep 'linux_amd64')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
