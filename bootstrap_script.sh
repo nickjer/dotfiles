@@ -214,7 +214,7 @@ function installTools() {
 
   # Download/install lsd
   echo "Downloading and installing 'lsd'"
-  local url="$(~/bin/ghlast Peltoche lsd --output assets | grep 'x86.*gnu.*gz$')"
+  local url="$(~/bin/ghlast lsd-rs lsd --output assets | grep 'x86.*gnu.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
