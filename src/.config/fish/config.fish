@@ -27,7 +27,7 @@ if status --is-login
 
   # fnm
   if command -v fnm &> /dev/null
-    fnm env | source
+    fnm env --use-on-cd | source
   end
 end
 
