@@ -163,7 +163,7 @@ endif
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'sheerun/vim-polyglot'
   if has('nvim')
-    Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+    Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
     Plug 'honza/vim-snippets'
   endif
   call plug#end()
