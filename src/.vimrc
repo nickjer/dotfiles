@@ -223,24 +223,6 @@ endif
   " }
 
   if has('nvim')
-    " function! s:check_back_space() abort
-    "   let col = col('.') - 1
-    "   return !col || getline('.')[col - 1]  =~ '\s'
-    " endfunction
-
-    " " Insert <tab> when previous text is space, refresh completion if not.
-    " inoremap <silent><expr> <TAB>
-    "   \ coc#pum#visible() ? coc#pum#next(1):
-    "   \ <SID>check_back_space() ? "\<Tab>" :
-    "   \ coc#refresh()
-    " inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-    " " Use <c-space> to trigger completion.
-    " inoremap <silent><expr> <c-space> coc#refresh()
-
-    " " Use <CR> to confirm completion
-    " inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-
     " Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
     nmap <silent> gy <Plug>(coc-type-definition)
@@ -248,15 +230,18 @@ endif
     nmap <silent> gr <Plug>(coc-references)
 
     " Use K to show documentation in preview window
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
+    nnoremap <silent> K :call ShowDocumentation()<CR>
 
-    function! s:show_documentation()
-      if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
       else
-        call CocAction('doHover')
+        call feedkeys('K', 'in')
       endif
     endfunction
+
+    " Highlight the symbol and its references when holding the cursor
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Remap for rename current word
     nmap <leader>rn <Plug>(coc-rename)
