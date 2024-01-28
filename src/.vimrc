@@ -145,7 +145,6 @@ endif
 " Plugins {
   call plug#begin('~/.vim/plugged')  " specify dir for plugins
   Plug 'morhetz/gruvbox'
-  Plug 'vim-airline/vim-airline'
   Plug 'dense-analysis/ale'
   Plug 'jlcrochet/vim-rbs'
   Plug 'tpope/vim-fugitive'
@@ -163,6 +162,7 @@ endif
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'sheerun/vim-polyglot'
   if has('nvim')
+    Plug 'nvim-lualine/lualine.nvim'
     Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
     Plug 'honza/vim-snippets'
   endif
