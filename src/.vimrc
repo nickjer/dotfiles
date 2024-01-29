@@ -126,6 +126,7 @@ endif
   Plug 'morhetz/gruvbox'
   Plug 'dense-analysis/ale'
   Plug 'jlcrochet/vim-rbs'
+  Plug 'wellle/context.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
