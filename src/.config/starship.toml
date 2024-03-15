@@ -26,3 +26,6 @@ symbol = "🅽 "
 
 [ruby]
 symbol = "🆁 "
+
+[time]
+disabled = false
