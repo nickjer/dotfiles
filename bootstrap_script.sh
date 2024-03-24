@@ -102,7 +102,7 @@ function installTools() {
 
   # Download/install yayo
   echo "Downloading and installing 'yayo'"
-  local url="$(~/bin/ghlast nickjer yayo --output assets | grep 'x86.*gnu.*gz$')"
+  local url="$(~/bin/ghlast nickjer yayo --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
