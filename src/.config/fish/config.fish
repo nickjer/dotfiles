@@ -29,6 +29,11 @@ if status --is-login
   if command -v fnm &> /dev/null
     fnm env --use-on-cd | source
   end
+
+  # yayo
+  if command -v yayo &> /dev/null
+    yayo completion fish | source
+  end
 end
 
 # Fix issue with QT applications and scaling
