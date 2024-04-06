@@ -45,6 +45,9 @@ set -x DISABLE_SPRING true
 # Set editor
 set -x EDITOR nvim
 
+# Ignore pry in Rails projects
+set -x DISABLE_PRY_RAILS 1
+
 # Set BP app root
 set -x BP_APP_ROOT $HOME/Development
 
