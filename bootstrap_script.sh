@@ -222,6 +222,12 @@ function installTools() {
       mv lsd ~/bin
   )
   rm -fr "${tmp}"
+
+  # Download/install treesitter
+  echo "Downloading and installing 'treesitter'"
+  local url="$(~/bin/ghlast tree-sitter tree-sitter --output assets | grep 'linux-x64')"
+  curl -L "${url}" | gunzip > ~/bin/tree-sitter && \
+    chmod 755 ~/bin/tree-sitter
 }
 
 function installGhlast() {
@@ -350,20 +356,4 @@ fish -c '
 
 # Install vim plugins
 echo "Bootstrapping vim..."
-"${HOME}/bin/nvim" '+PlugUpgrade' '+PlugClean!' '+PlugUpdate' '+qall'
-
-# Download/install coc.nvim extensions
-"${HOME}/bin/nvim" \
-  "+CocInstall -sync \
-    coc-explorer \
-    coc-fish \
-    coc-git \
-    coc-json \
-    coc-markdownlint \
-    coc-pairs \
-    coc-rust-analyzer \
-    https://github.com/polypus74/trusty_rusty_snippets \
-    coc-sh \
-    coc-snippets \
-    coc-solargraph" \
-  '+qall'
+"${HOME}/bin/nvim" --headless "+Lazy! sync" +qa
