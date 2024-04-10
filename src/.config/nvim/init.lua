@@ -100,6 +100,11 @@ require("lazy").setup({
     end
   },
   {
+    "mihyaeru21/nvim-lspconfig-bundler",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = true,
+  },
+  {
     "VonHeikemen/lsp-zero.nvim",
     branch = "v3.x",
     dependencies = {
@@ -118,7 +123,7 @@ require("lazy").setup({
   },
   { "andymass/vim-matchup" },
   { "kylechui/nvim-surround", event = "VeryLazy", config = true, },
-  { "nvim-treesitter/nvim-treesitter-context", config = true, },
+  { "wellle/context.vim" },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
