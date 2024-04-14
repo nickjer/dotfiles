@@ -55,6 +55,7 @@ require("lazy").setup({
       vim.cmd([[colorscheme gruvbox]])
     end
   },
+  { "ruifm/gitlinker.nvim", config = true },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
