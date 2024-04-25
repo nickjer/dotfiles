@@ -1,6 +1,7 @@
 -- VIM options
 vim.opt.background = "dark"
 vim.opt.spell = true
+vim.opt.spelloptions = "camel"
 vim.opt.undofile = true
 vim.opt.cursorline = true
 vim.opt.number = true
