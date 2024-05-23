@@ -18,3 +18,7 @@ dst
 fallthrough
 bindable
 websocket
+redis
+elasticsearch
+api
+boldpenguin

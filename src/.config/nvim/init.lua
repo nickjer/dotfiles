@@ -64,7 +64,6 @@ require("lazy").setup({
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -158,6 +157,18 @@ require("lazy").setup({
   },
   { "tpope/vim-fugitive" },
   { "lewis6991/gitsigns.nvim", config = true, },
+  {
+    "zbirenbaum/copilot.lua",
+    config = function()
+      require("copilot").setup({
+        panel = {
+          auto_refresh = true,
+          layout = { position = "right", },
+        },
+        suggestion = { auto_trigger = true, },
+      })
+    end
+  },
 })
 
 -- lsp-zero
