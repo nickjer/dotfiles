@@ -25,15 +25,15 @@ services:
     ports:
       - "127.0.0.1:6379:6379"
   elastic:
-    image: boldpenguin/elasticsearch
+    image: boldpenguin/opensearch:latest
     restart: unless-stopped
     environment:
       discovery.type: single-node
     volumes:
-      - "es_data:/usr/share/elasticsearch/data"
+      - "es_data:/usr/share/opensearch/data"
     ports:
       - "127.0.0.1:9200:9200"
-      - "127.0.0.1:9300:9300"
+      - "127.0.0.1:9600:9600"
   selenium:
     image: selenium/standalone-chrome:3.141.59-20210713
     restart: unless-stopped
