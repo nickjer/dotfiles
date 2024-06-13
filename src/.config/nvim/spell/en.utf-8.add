@@ -22,3 +22,6 @@ redis
 elasticsearch
 api
 boldpenguin
+magellan
+atlassian
+sidekiq
