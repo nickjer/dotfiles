@@ -124,7 +124,7 @@ require("lazy").setup({
   },
   { "andymass/vim-matchup" },
   { "kylechui/nvim-surround", event = "VeryLazy", config = true, },
-  { "wellle/context.vim" },
+  { "nvim-treesitter/nvim-treesitter-context", config = true, },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
