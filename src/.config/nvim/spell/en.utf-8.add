@@ -26,3 +26,6 @@ magellan
 atlassian
 sidekiq
 encryptor
+unstaged
+json
+refetch
