@@ -56,6 +56,9 @@ require("lazy").setup({
       vim.cmd([[colorscheme gruvbox]])
     end
   },
+  {
+    "jlcrochet/vim-rbs",
+  },
   { "ruifm/gitlinker.nvim", config = true },
   {
     "nvim-lualine/lualine.nvim",
