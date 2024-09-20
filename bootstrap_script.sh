@@ -208,9 +208,14 @@ function installTools() {
 
   # Download/install sd
   echo "Downloading and installing 'sd'"
-  local url="$(~/bin/ghlast chmln sd --output assets | grep 'x86.*musl$')"
-  curl -L "${url}" -o ~/bin/sd && \
-    chmod 755 ~/bin/sd
+  local url="$(~/bin/ghlast chmln sd --output assets | grep 'x86.*musl')"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      mv sd ~/bin
+  )
+  rm -fr "${tmp}"
 
   # Download/install lsd
   echo "Downloading and installing 'lsd'"
