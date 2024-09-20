@@ -57,7 +57,7 @@ require("lazy").setup({
     end
   },
   {
-    "jlcrochet/vim-rbs",
+    "pocke/rbs.vim",
   },
   { "ruifm/gitlinker.nvim", config = true },
   {
