@@ -32,6 +32,9 @@ vim.opt.splitbelow = true
 vim.keymap.set("v", "<", "<gv", {})
 vim.keymap.set("v", ">", ">gv", {})
 
+-- Custom file types
+vim.filetype.add({ filename = { ["Steepfile"] = "ruby" } })
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -190,7 +193,7 @@ mason.setup({})
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
   automatic_installation = true,
-  ensure_installed = { "rust_analyzer", "solargraph" },
+  ensure_installed = { "rust_analyzer", "solargraph", "steep" },
   handlers = {
     lsp_zero.default_setup,
     rust_analyzer = function()
@@ -203,6 +206,9 @@ mason_lspconfig.setup({
     end,
     solargraph = function()
       require("lspconfig").solargraph.setup({})
+    end,
+    steep = function()
+      require("lspconfig").steep.setup({})
     end,
   },
 })
