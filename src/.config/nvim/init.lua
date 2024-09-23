@@ -192,8 +192,7 @@ mason.setup({})
 -- mason-lspconfig
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
-  automatic_installation = true,
-  ensure_installed = { "rust_analyzer", "solargraph", "steep" },
+  ensure_installed = { "rust_analyzer", "solargraph" },
   handlers = {
     lsp_zero.default_setup,
     rust_analyzer = function()
@@ -207,10 +206,12 @@ mason_lspconfig.setup({
     solargraph = function()
       require("lspconfig").solargraph.setup({})
     end,
-    steep = function()
-      require("lspconfig").steep.setup({})
-    end,
   },
+})
+
+-- lspconfig (steep)
+require("lspconfig").steep.setup({
+  root_dir = require("lspconfig.util").root_pattern("Steepfile"),
 })
 
 -- cmp
