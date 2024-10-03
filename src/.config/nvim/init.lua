@@ -115,7 +115,6 @@ require("lazy").setup({
   {
     "mihyaeru21/nvim-lspconfig-bundler",
     dependencies = { "neovim/nvim-lspconfig" },
-    config = true,
   },
   {
     "VonHeikemen/lsp-zero.nvim",
@@ -183,13 +182,44 @@ require("lazy").setup({
   },
 })
 
+-- cmp
+local cmp = require("cmp")
+cmp.setup({
+  sources = {
+    {name = "nvim_lsp"},
+  },
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({}),
+})
+
 -- lsp-zero
 local lsp_zero = require("lsp-zero")
-lsp_zero.on_attach(function(client, bufnr)
+local lsp_attach = function(client, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
-  lsp_zero.default_keymaps({ buffer = bufnr })
-end)
+  lsp_zero.default_keymaps({buffer = bufnr})
+end
+lsp_zero.extend_lspconfig({
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  lsp_attach = lsp_attach,
+  float_border = "rounded",
+  sign_text = true,
+})
+
+-- lspconfig-bundler
+require("lspconfig-bundler").setup({
+  only_bundler = true,
+})
+
+-- lspconfig
+lspconfig = require("lspconfig")
+lspconfig.rubocop.setup({})
+lspconfig.solargraph.setup({})
+lspconfig.steep.setup({})
 
 -- mason
 local mason = require("mason")
@@ -198,26 +228,18 @@ mason.setup({})
 -- mason-lspconfig
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
-  ensure_installed = { "rust_analyzer", "solargraph" },
+  ensure_installed = { "rust_analyzer", },
   handlers = {
     lsp_zero.default_setup,
     rust_analyzer = function()
-      require("lspconfig").rust_analyzer.setup({
+      lspconfig.rust_analyzer.setup({
         -- Server-specific settings. See `:help lspconfig-setup`
         settings = {
           ["rust-analyzer"] = {},
         },
       })
     end,
-    solargraph = function()
-      require("lspconfig").solargraph.setup({})
-    end,
   },
-})
-
--- lspconfig (steep)
-require("lspconfig").steep.setup({
-  root_dir = require("lspconfig.util").root_pattern("Steepfile"),
 })
 
 -- cmp
