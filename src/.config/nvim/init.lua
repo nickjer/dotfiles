@@ -35,6 +35,12 @@ vim.keymap.set("v", ">", ">gv", {})
 -- Custom file types
 vim.filetype.add({ filename = { ["Steepfile"] = "ruby" } })
 
+-- Debug LSP
+-- vim.lsp.set_log_level 'debug'
+-- if vim.fn.has 'nvim-0.5.1' == 1 then
+--   require('vim.lsp.log').set_format_func(vim.inspect)
+-- end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
