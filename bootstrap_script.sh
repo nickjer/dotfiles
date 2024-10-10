@@ -86,8 +86,13 @@ function installTools() {
   # Download/install neovim
   echo "Downloading and installing 'neovim'"
   local url="$(~/bin/ghlast neovim neovim --output assets | grep 'appimage$')"
-  curl -L "${url}" -s -S -f -o ~/bin/nvim && \
-    chmod 755 ~/bin/nvim
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" -s -S -f -o nvim && \
+      chmod 755 nvim && \
+      mv nvim ~/bin
+  )
 
   # Download/install starship
   echo "Downloading and installing 'starship'"
