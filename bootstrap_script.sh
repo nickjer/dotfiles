@@ -94,6 +94,17 @@ function installTools() {
       mv nvim ~/bin
   )
 
+  # Download/install uctags
+  echo "Downloading and installing 'uctags'"
+  local url="$(~/bin/ghlast universal-ctags ctags-nightly-build --output assets | grep 'linux-x86_64\.tar\.gz$')"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" && \
+      curl -L "${url}" | tar xz --strip-components=1 && \
+      mv bin/* ~/bin/.
+  )
+  rm -fr "${tmp}"
+
   # Download/install starship
   echo "Downloading and installing 'starship'"
   local url="$(~/bin/ghlast starship starship --output assets | grep 'x86.*musl.*gz$')"
