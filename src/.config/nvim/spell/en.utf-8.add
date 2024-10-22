@@ -30,3 +30,4 @@ unstaged
 json
 refetch
 timestamp
+bool
