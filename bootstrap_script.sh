@@ -211,7 +211,7 @@ function installTools() {
   local url="$(~/bin/ghlast dbrgn tealdeer --output assets | grep 'x86.*musl$')"
   curl -L "${url}" -o ~/bin/tldr && \
     chmod 755 ~/bin/tldr
-  ~/bin/tldr --update
+  ~/bin/tldr --update || true
   local url="$(~/bin/ghlast dbrgn tealdeer --output assets | grep 'completions_fish')"
   mkdir -p ~/.config/fish/completions && \
     curl -L "${url}" -o ~/.config/fish/completions/tldr.fish
