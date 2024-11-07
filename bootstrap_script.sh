@@ -265,74 +265,24 @@ function installGhlast() {
   rm --force --recursive "${tmp}"
 }
 
-function installChruby() {
-  echo "Installing chruby..."
-  local github="https://github.com/postmodern/chruby"
-  local version="master"
-  local url="${github}/archive/${version}.tar.gz"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}"
-    curl -L "${url}" | tar xz --strip-components=1
-    PREFIX="${HOME}/.chruby" make install
-  )
-  rm -fr "${tmp}"
+function installMise() {
+  echo "Installing mise..."
+  local url="$(~/bin/ghlast jdx mise --output assets | grep 'linux-x64$')"
+  curl -L "${url}" -o ~/bin/mise && \
+    chmod 755 ~/bin/mise
 
-  local github="https://github.com/JeanMertz/chruby-fish"
-  local version="master"
-  local url="${github}/archive/${version}.tar.gz"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}"
-    curl -L "${url}" | tar xz --strip-components=1
-    PREFIX="${HOME}/.chruby" make install
-  )
-  rm -fr "${tmp}"
-
-  local github="https://github.com/postmodern/ruby-install"
-  local version="master"
-  local url="${github}/archive/${version}.tar.gz"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}"
-    curl -L "${url}" | tar xz --strip-components=1
-    PREFIX="${HOME}/.chruby" make install
-  )
-  rm -fr "${tmp}"
-  echo "Done installing chruby!"
-
-  source "$HOME/.chruby/share/chruby/chruby.sh"
-  chruby ruby || true
+  source <(~/bin/mise activate bash)
 }
 
 function installRuby() {
   echo "Installing ruby..."
-  export PATH="${HOME}/.chruby/bin:${PATH}"
-  ruby-install --latest ruby
+  mise use --global ruby
   echo "Done installing ruby!"
-}
-
-function installFnm() {
-  # Download/install node version manager
-  echo "Downloading and installing 'fnm'"
-  local url="$(~/bin/ghlast Schniz fnm --output assets | grep 'linux')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" && \
-      curl -L "${url}" -o fnm-linux.zip && \
-      unzip fnm-linux.zip && \
-      chmod 755 fnm && \
-      mv fnm ~/bin
-  )
-  rm -fr "${tmp}"
-  echo "Done installing fnm!"
-
-  eval "$(~/bin/fnm env)"
 }
 
 function installNode() {
   echo "Installing node..."
-  ~/bin/fnm install --lts
+  mise use --global node@lts
   echo "Done installing node!"
 }
 
@@ -345,16 +295,13 @@ function installYarn() {
 # Install GitHub last release lookup tool
 installGhlast
 
-# Install a ruby version manager
-installChruby
+# Install a tooling version manager
+installMise
 
 # Install ruby if missing
 if ! command -v ruby &> /dev/null ; then
   installRuby
 fi
-
-# Install a node version manager
-installFnm
 
 # Install node if missing
 if ! command -v node &> /dev/null ; then

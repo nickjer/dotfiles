@@ -4,15 +4,9 @@ if status --is-login
     set -x PATH ~/bin $PATH
   end
 
-  # chruby
-  if test -d ~/.chruby
-    set -x PATH ~/.chruby/bin $PATH
-    set -x CHRUBY_ROOT ~/.chruby
-    source ~/.chruby/share/fish/vendor_conf.d/chruby_auto.fish
-    source ~/.chruby/share/fish/vendor_functions.d/chruby.fish
-    source ~/.chruby/share/fish/vendor_functions.d/chruby_reset.fish
-    source ~/.chruby/share/fish/vendor_functions.d/chruby_use.fish
-    # Set default ruby version in `~/.ruby-version`
+  # mise
+  if command -v mise &> /dev/null
+    mise activate fish | source
   end
 
   # yarn
@@ -23,11 +17,6 @@ if status --is-login
   # cargo
   if test -d ~/.cargo
     set -x PATH ~/.cargo/bin $PATH
-  end
-
-  # fnm
-  if command -v fnm &> /dev/null
-    fnm env --use-on-cd | source
   end
 
   # yayo
