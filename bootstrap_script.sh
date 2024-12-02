@@ -96,7 +96,7 @@ function installTools() {
 
   # Download/install uctags
   echo "Downloading and installing 'uctags'"
-  local url="$(~/bin/ghlast universal-ctags ctags-nightly-build --output assets | grep 'linux-x86_64\.tar\.gz$')"
+  local url="$(~/bin/ghlast universal-ctags ctags-nightly-build --output assets | grep 'linux-x86_64\.release\.tar\.gz$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
