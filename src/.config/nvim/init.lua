@@ -65,9 +65,6 @@ require("lazy").setup({
       vim.cmd([[colorscheme gruvbox]])
     end
   },
-  {
-    "pocke/rbs.vim",
-  },
   { "ruifm/gitlinker.nvim", config = true },
   {
     "nvim-lualine/lualine.nvim",
@@ -144,7 +141,7 @@ require("lazy").setup({
     },
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "ruby", "rust" },
+        ensure_installed = { "lua", "rbs", "ruby", "rust" },
         sync_install = false,
         highlight = {
           enable = true,
@@ -245,7 +242,7 @@ require("lazy").setup({
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
     config = true,
-  }
+  },
 })
 
 -- cmp
