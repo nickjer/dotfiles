@@ -85,7 +85,7 @@ fi
 function installTools() {
   # Download/install neovim
   echo "Downloading and installing 'neovim'"
-  local url="$(~/bin/ghlast neovim neovim --output assets | grep 'appimage$')"
+  local url="$(~/bin/ghlast neovim neovim --output assets | grep 'x86_64\.appimage$')"
   local tmp="$(mktemp -d)"
   (
     cd "${tmp}" && \
