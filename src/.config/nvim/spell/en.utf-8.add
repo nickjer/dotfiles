@@ -32,3 +32,6 @@ refetch
 timestamp
 bool
 do
+pictograms
+desc
+unsaved

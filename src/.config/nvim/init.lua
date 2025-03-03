@@ -62,7 +62,7 @@ require("lazy").setup({
       require("gruvbox").setup({
         contrast = "hard",
       })
-      vim.cmd([[colorscheme gruvbox]])
+      vim.cmd.colorscheme("gruvbox")
     end
   },
   { "ruifm/gitlinker.nvim", config = true },
@@ -81,6 +81,26 @@ require("lazy").setup({
     config = function()
       require("neo-tree").setup({})
       vim.keymap.set("n", "<leader>e", ":Neotree toggle reveal_force_cwd<cr>", {})
+    end
+  },
+  {
+    "stevearc/aerial.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons"
+    },
+    config = function()
+      require("aerial").setup({
+        -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+        on_attach = function(bufnr)
+          -- Jump forwards/backwards with '{' and '}'
+          vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+          vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+        end,
+      })
+      vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
     end
   },
   {
@@ -109,26 +129,28 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
     end
   },
+  { "neovim/nvim-lspconfig" },
+  { "hrsh7th/cmp-nvim-lsp"},
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-buffer", -- source for text in buffer
+      "hrsh7th/cmp-path", -- source for file paths
+      "L3MON4D3/LuaSnip",
+      "rafamadriz/friendly-snippets",
+      "onsails/lspkind.nvim", -- vs-code like pictograms
+    }
+  },
+  {
+    "williamboman/mason.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "williamboman/mason-lspconfig.nvim",
+    },
+  },
   {
     "mihyaeru21/nvim-lspconfig-bundler",
     dependencies = { "neovim/nvim-lspconfig" },
-  },
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v4.x",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
-      "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
-    }
   },
   { "andymass/vim-matchup" },
   { "kylechui/nvim-surround", event = "VeryLazy", config = true, },
@@ -245,32 +267,33 @@ require("lazy").setup({
   },
 })
 
--- cmp
-local cmp = require("cmp")
-cmp.setup({
-  sources = {
-    {name = "nvim_lsp"},
-  },
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({}),
-})
+-- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- This should be executed before you configure any language server
+local lspconfig_defaults = require("lspconfig").util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  "force",
+  lspconfig_defaults.capabilities,
+  require("cmp_nvim_lsp").default_capabilities()
+)
 
--- lsp-zero
-local lsp_zero = require("lsp-zero")
-local lsp_attach = function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-  lsp_zero.default_keymaps({buffer = bufnr})
-end
-lsp_zero.extend_lspconfig({
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
-  lsp_attach = lsp_attach,
-  float_border = "rounded",
-  sign_text = true,
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "LSP actions",
+  callback = function(event)
+    local opts = {buffer = event.buf}
+
+    vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+    vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+    vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
+    vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+    vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
+    vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+    vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+    vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+    vim.keymap.set({"n", "x"}, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
+    vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+  end,
 })
 
 -- lspconfig-bundler
@@ -278,7 +301,8 @@ require("lspconfig-bundler").setup({
   only_bundler = true,
 })
 
--- lspconfig
+-- You'll find a list of language servers here:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 lspconfig = require("lspconfig")
 lspconfig.rubocop.setup({})
 lspconfig.solargraph.setup({})
@@ -304,32 +328,45 @@ require("mason-lspconfig").setup({
 
 -- cmp
 local cmp = require("cmp")
-local cmp_action = lsp_zero.cmp_action()
-local cmp_format = lsp_zero.cmp_format({details = true})
-
-require("luasnip.loaders.from_vscode").lazy_load()
-
 cmp.setup({
-  sources = {
+  sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "buffer" },
     { name = "path" },
-    { name = "nvim_lua" },
     { name = "luasnip" },
-  },
-  mapping = cmp.mapping.preset.insert({
-    ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-    ["<C-b>"] = cmp_action.luasnip_jump_backward(),
   }),
   snippet = {
     expand = function(args)
-      require("luasnip").lsp_expand(args.body)
+      vim.snippet.expand(args.body)
     end,
   },
-  preselect = "item",
-  completion = {
-    completeopt = "menu,menuone,noinsert"
-  },
-  --- (Optional) Show source name in completion menu
-  formatting = cmp_format,
+  mapping = cmp.mapping.preset.insert({}),
 })
+
+--
+-- require("luasnip.loaders.from_vscode").lazy_load()
+--
+-- cmp.setup({
+--   sources = {
+--     { name = "nvim_lsp" },
+--     { name = "buffer" },
+--     { name = "path" },
+--     { name = "nvim_lua" },
+--     { name = "luasnip" },
+--   },
+--   mapping = cmp.mapping.preset.insert({
+--     ["<C-f>"] = cmp_action.luasnip_jump_forward(),
+--     ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+--   }),
+--   snippet = {
+--     expand = function(args)
+--       vim.snippet.expand(args.body)
+--     end,
+--   },
+--   preselect = "item",
+--   completion = {
+--     completeopt = "menu,menuone,noinsert"
+--   },
+--   --- (Optional) Show source name in completion menu
+--   formatting = cmp_format,
+-- })
