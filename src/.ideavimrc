@@ -1,0 +1,21 @@
+""" See https://gist.github.com/AlexPl292/50a3ff4cef1badcbb23436b22cbd3cf4
+
+let mapleader="\"
+
+""" Plugins  --------------------------------
+set surround
+set commentary
+
+""" Plugin settings -------------------------
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set incsearch
+set nu
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=gray
+
+""" My Mappings -----------------------------
