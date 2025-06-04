@@ -1,18 +1,25 @@
-""" See https://gist.github.com/AlexPl292/50a3ff4cef1badcbb23436b22cbd3cf4
+""" See https://github.com/JetBrains/ideavim/discussions/303
 
 let mapleader="\"
 
 """ Plugins  --------------------------------
-set surround
-set commentary
+""" See https://github.com/JetBrains/ideavim/wiki/IdeaVim-Plugins
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'tpope/vim-commentary'
+Plug 'chrisbra/matchit'
+Plug 'tpope/vim-surround'
 
 """ Plugin settings -------------------------
+let g:WhichKey_ShowVimActions = "true"
 
 """ Common settings -------------------------
 set showmode
-set so=5
-set incsearch
-set nu
+set scrolloff=5          " Minimal number of lines above and below the cursor
+set incsearch            " Show where search pattern typed so far matches
+set number               " Show line numbers
+set which-key            " Enable Which-Key plugin
+set notimeout            " Do not hide Which-Key popup
+set hls                  " Enable search highlighting
 
 """ Idea specific settings ------------------
 set ideajoin
