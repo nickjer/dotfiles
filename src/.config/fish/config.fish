@@ -1,7 +1,5 @@
 # set PATH so it includes user's private bin if it exists
-if test -d ~/bin
-  fish_add_path ~/bin
-end
+fish_add_path ~/bin
 
 # mise
 if command -v mise &> /dev/null
@@ -9,14 +7,10 @@ if command -v mise &> /dev/null
 end
 
 # yarn
-if test -d ~/.yarn
-  fish_add_path ~/.yarn/bin
-end
+fish_add_path ~/.yarn/bin
 
 # cargo
-if test -d ~/.cargo
-  fish_add_path ~/.cargo/bin
-end
+fish_add_path ~/.cargo/bin
 
 # yayo
 if command -v yayo &> /dev/null
