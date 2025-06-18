@@ -1,28 +1,26 @@
-if status --is-login
-  # set PATH so it includes user's private bin if it exists
-  if test -d ~/bin
-    set -x PATH ~/bin $PATH
-  end
+# set PATH so it includes user's private bin if it exists
+if test -d ~/bin
+  fish_add_path ~/bin
+end
 
-  # mise
-  if command -v mise &> /dev/null
-    mise activate fish | source
-  end
+# mise
+if command -v mise &> /dev/null
+  mise activate fish | source
+end
 
-  # yarn
-  if test -d ~/.yarn
-    set -x PATH ~/.yarn/bin $PATH
-  end
+# yarn
+if test -d ~/.yarn
+  fish_add_path ~/.yarn/bin
+end
 
-  # cargo
-  if test -d ~/.cargo
-    set -x PATH ~/.cargo/bin $PATH
-  end
+# cargo
+if test -d ~/.cargo
+  fish_add_path ~/.cargo/bin
+end
 
-  # yayo
-  if command -v yayo &> /dev/null
-    yayo completion fish | source
-  end
+# yayo
+if command -v yayo &> /dev/null
+  yayo completion fish | source
 end
 
 # Fix issue with QT applications and scaling
