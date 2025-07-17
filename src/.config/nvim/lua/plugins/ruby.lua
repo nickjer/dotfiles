@@ -13,6 +13,7 @@ return {
         steep = {
           mason = false,
           cmd = { "bundle", "exec", "steep", "langserver" },
+          root_dir = require("lspconfig.util").root_pattern("Steepfile"),
         },
       },
     },
