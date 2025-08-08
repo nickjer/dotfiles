@@ -3,7 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        ruby_lsp = {},
+        -- ruby_lsp = {},
         rubocop = {
           mason = false,
           cmd = { "bundle", "exec", "rubocop", "--lsp" },
