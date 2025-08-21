@@ -226,6 +226,12 @@ function installTools() {
       mv lsd ~/.local/bin
   )
   rm -fr "${tmp}"
+
+  # Download/install flameshot
+  echo "Downloading and installing 'flameshot'"
+  local url="$(~/.local/bin/ghlast flameshot-org flameshot --output assets | grep '\.AppImage$')"
+  curl -L "${url}" -o ~/.local/bin/flameshot &&
+    chmod 755 ~/.local/bin/flameshot
 }
 
 function installGhlast() {
