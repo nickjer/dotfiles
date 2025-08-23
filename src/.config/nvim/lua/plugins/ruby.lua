@@ -16,4 +16,13 @@ return {
       },
     },
   },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        -- Disable the eruby formatter from conform.nvim
+        eruby = {},
+      },
+    },
+  },
 }

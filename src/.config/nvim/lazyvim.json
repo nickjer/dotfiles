@@ -2,7 +2,8 @@
   "extras": [
     "lazyvim.plugins.extras.ai.copilot",
     "lazyvim.plugins.extras.coding.mini-surround",
-    "lazyvim.plugins.extras.lang.ruby"
+    "lazyvim.plugins.extras.lang.ruby",
+    "lazyvim.plugins.extras.ui.treesitter-context"
   ],
   "install_version": 8,
   "news": {
