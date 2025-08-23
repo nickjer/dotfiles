@@ -30,4 +30,14 @@ return {
       },
     },
   },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      indent = {
+        enable = true,
+        -- Fix indentation issues with Ruby
+        disable = { "ruby" },
+      },
+    },
+  },
 }
