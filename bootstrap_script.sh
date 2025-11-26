@@ -226,6 +226,17 @@ function installTools() {
       mv lsd ~/.local/bin
   )
   rm -fr "${tmp}"
+
+  # Download/install jira-cli
+  echo "Downloading and installing 'jira-cli'"
+  local url="$(~/.local/bin/ghlast ankitpokhrel jira-cli --output assets | grep 'linux_x86_64')"
+  local tmp="$(mktemp -d)"
+  (
+    cd "${tmp}" &&
+      curl -L "${url}" | tar xz --strip-components=1 &&
+      mv bin/jira ~/.local/bin
+  )
+  rm -fr "${tmp}"
 }
 
 function installGhlast() {
