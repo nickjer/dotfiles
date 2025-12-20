@@ -3,10 +3,10 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        ruby_lsp = {
-          mason = false,
-          cmd = { vim.fn.expand("~/.local/share/mise/shims/ruby-lsp") },
-        },
+        -- ruby_lsp = {
+        --   mason = false,
+        --   cmd = { vim.fn.expand("~/.local/share/mise/shims/ruby-lsp") },
+        -- },
         rubocop = {
           mason = false,
           cmd = { "bundle", "exec", "rubocop", "--lsp" },
@@ -14,7 +14,6 @@ return {
         steep = {
           mason = false,
           cmd = { "bundle", "exec", "steep", "langserver" },
-          root_dir = require("lspconfig.util").root_pattern("Steepfile"),
         },
       },
     },
