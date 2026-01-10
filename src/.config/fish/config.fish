@@ -2,8 +2,10 @@
 fish_add_path ~/.local/bin
 
 # mise
-if command -v mise &>/dev/null
+if status is-interactive
     mise activate fish | source
+else
+    mise activate fish --shims | source
 end
 
 # yarn
