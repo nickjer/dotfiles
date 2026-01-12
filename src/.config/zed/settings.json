@@ -15,6 +15,9 @@
   "session": {
     "trust_all_worktrees": true,
   },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 15,
