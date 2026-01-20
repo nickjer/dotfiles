@@ -16,7 +16,7 @@
     "trust_all_worktrees": true,
   },
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "vim_mode": true,
   "ui_font_size": 16,
@@ -28,7 +28,7 @@
   },
   "languages": {
     "Ruby": {
-      "language_servers": ["steep", "rubocop", "!ruby-lsp", "!solargraph"],
+      "language_servers": ["steep", "rubocop", "ruby-lsp", "!solargraph"],
     },
   },
   "wrap_guides": [80],
