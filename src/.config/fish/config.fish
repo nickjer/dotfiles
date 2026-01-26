@@ -42,6 +42,11 @@ if test -z "$PKG_GITHUB_COM_TOKEN"
     set -x PKG_GITHUB_COM_TOKEN ""
 end
 
+# Set Bundler GitHub token
+if command -v gh &>/dev/null
+    set -x BUNDLE_RUBYGEMS__PKG__GITHUB__COM "nickjer:"(gh auth token)
+end
+
 # Vim keybindings
 fish_vi_key_bindings
 
