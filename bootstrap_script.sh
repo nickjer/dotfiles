@@ -4,61 +4,73 @@ set -eo pipefail
 
 mkdir -p ~/.local/bin
 
-# Install fish if missing
-if ! command -v fish &>/dev/null; then
-  sudo apt-add-repository ppa:fish-shell/release-4
-  sudo apt-get update
-  sudo apt-get install fish
+# Detect package manager
+if command -v pacman &>/dev/null; then
+  PKG_MANAGER="pacman"
+elif command -v apt &>/dev/null; then
+  PKG_MANAGER="apt"
+else
+  echo "Unsupported package manager"
+  exit 1
 fi
 
-# Install make if missing
-if ! command -v make &>/dev/null; then
-  sudo apt install -y make
-fi
+if [[ "$PKG_MANAGER" == "apt" ]]; then
+  # Install fish if missing (Ubuntu/Pop_OS)
+  if ! command -v fish &>/dev/null; then
+    sudo apt-add-repository ppa:fish-shell/release-4
+    sudo apt-get update
+    sudo apt-get install -y fish
+  fi
 
-# Install curl if missing
-if ! command -v curl &>/dev/null; then
-  sudo apt install -y curl
-fi
+  # Install make if missing
+  if ! command -v make &>/dev/null; then
+    sudo apt install -y make
+  fi
 
-# Install tar if missing
-if ! command -v tar &>/dev/null; then
-  sudo apt install -y tar
-fi
+  # Install curl if missing
+  if ! command -v curl &>/dev/null; then
+    sudo apt install -y curl
+  fi
 
-# Install openssl if missing
-if ! command -v openssl &>/dev/null; then
-  sudo apt install -y openssl
-fi
+  # Install tar if missing
+  if ! command -v tar &>/dev/null; then
+    sudo apt install -y tar
+  fi
 
-# Install bzip2 if missing
-if ! command -v bzip2 &>/dev/null; then
-  sudo apt install -y bzip2
-fi
+  # Install openssl if missing
+  if ! command -v openssl &>/dev/null; then
+    sudo apt install -y openssl
+  fi
 
-# Install unzip if missing
-if ! command -v unzip &>/dev/null; then
-  sudo apt install -y unzip
-fi
+  # Install bzip2 if missing
+  if ! command -v bzip2 &>/dev/null; then
+    sudo apt install -y bzip2
+  fi
 
-# Install patch if missing
-if ! command -v patch &>/dev/null; then
-  sudo apt install -y patch
-fi
+  # Install unzip if missing
+  if ! command -v unzip &>/dev/null; then
+    sudo apt install -y unzip
+  fi
 
-# Install gcc if missing
-if ! command -v gcc &>/dev/null; then
-  sudo apt install build-essential
-fi
+  # Install patch if missing
+  if ! command -v patch &>/dev/null; then
+    sudo apt install -y patch
+  fi
 
-# Install xsel if missing
-if ! command -v xsel &>/dev/null; then
-  sudo apt install -y xsel
-fi
+  # Install gcc if missing
+  if ! command -v gcc &>/dev/null; then
+    sudo apt install -y build-essential
+  fi
 
-# Install libfuse2 if missing
-if [[ ! -f "/usr/lib/x86_64-linux-gnu/libfuse.so.2" ]]; then
-  sudo apt install -y libfuse2
+  # Install xsel if missing
+  if ! command -v xsel &>/dev/null; then
+    sudo apt install -y xsel
+  fi
+
+  # Install libfuse2 if missing
+  if [[ ! -f "/usr/lib/x86_64-linux-gnu/libfuse.so.2" ]]; then
+    sudo apt install -y libfuse2
+  fi
 fi
 
 # Copy over dotfiles
@@ -83,7 +95,7 @@ fi
 )
 
 function installTools() {
-  # Download/install neovim
+  # Download/install neovim (dev build from GitHub)
   echo "Downloading and installing 'neovim'"
   local url="$(~/.local/bin/ghlast neovim neovim --output assets | grep 'x86_64\.appimage$')"
   local tmp="$(mktemp -d)"
@@ -93,19 +105,9 @@ function installTools() {
       chmod 755 nvim &&
       mv nvim ~/.local/bin
   )
-
-  # Download/install starship
-  echo "Downloading and installing 'starship'"
-  local url="$(~/.local/bin/ghlast starship starship --output assets | grep 'x86.*musl.*gz$')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz &&
-      mv starship ~/.local/bin
-  )
   rm -fr "${tmp}"
 
-  # Download/install yayo
+  # Download/install yayo (custom tool)
   echo "Downloading and installing 'yayo'"
   local url="$(~/.local/bin/ghlast nickjer yayo --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
@@ -116,7 +118,7 @@ function installTools() {
   )
   rm -fr "${tmp}"
 
-  # Download/install fltn
+  # Download/install fltn (custom tool)
   echo "Downloading and installing 'fltn'"
   local url="$(~/.local/bin/ghlast nickjer fltn --output assets | grep 'x86.*musl.*gz$')"
   local tmp="$(mktemp -d)"
@@ -127,107 +129,7 @@ function installTools() {
   )
   rm -fr "${tmp}"
 
-  # Download/install ripgrep
-  echo "Downloading and installing 'ripgrep'"
-  local url="$(~/.local/bin/ghlast BurntSushi ripgrep --output assets | grep 'x86.*musl.*gz$')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz --strip-components=1 &&
-      mv rg ~/.local/bin
-  )
-  rm -fr "${tmp}"
-
-  # Download/install delta
-  echo "Downloading and installing 'delta'"
-  local url="$(~/.local/bin/ghlast dandavison delta --output assets | grep 'x86.*musl.*gz$')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz --strip-components=1 &&
-      mv delta ~/.local/bin
-  )
-  rm -fr "${tmp}"
-
-  # Download/install xh
-  echo "Downloading and installing 'xh'"
-  local url="$(~/.local/bin/ghlast ducaale xh --output assets | grep 'x86.*musl.*gz$')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz --strip-components=1 &&
-      mv xh ~/.local/bin &&
-      rm -f ~/.local/bin/xhs &&
-      ln -s ~/.local/bin/xh ~/.local/bin/xhs
-  )
-  rm -fr "${tmp}"
-
-  # Download/install fzf
-  echo "Downloading and installing 'fzf'"
-  local url="$(~/.local/bin/ghlast junegunn fzf --output assets | grep 'linux_amd64')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz &&
-      mv fzf ~/.local/bin
-  )
-  rm -fr "${tmp}"
-
-  # Download/install fd
-  echo "Downloading and installing 'fd'"
-  local url="$(~/.local/bin/ghlast sharkdp fd --output assets | grep 'x86.*gnu.*gz$')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz --strip-components=1 &&
-      mv fd ~/.local/bin
-  )
-  rm -fr "${tmp}"
-
-  # Download/install bat
-  echo "Downloading and installing 'bat'"
-  local url="$(~/.local/bin/ghlast sharkdp bat --output assets | grep 'x86.*gnu.*gz$')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz --strip-components=1 &&
-      mv bat ~/.local/bin
-  )
-  rm -fr "${tmp}"
-
-  # Download/install tldr
-  echo "Downloading and installing 'tldr'"
-  local url="$(~/.local/bin/ghlast dbrgn tealdeer --output assets | grep 'x86.*musl$')"
-  curl -L "${url}" -o ~/.local/bin/tldr &&
-    chmod 755 ~/.local/bin/tldr
-  ~/.local/bin/tldr --update || true
-  local url="$(~/.local/bin/ghlast dbrgn tealdeer --output assets | grep 'completions_fish')"
-  mkdir -p ~/.config/fish/completions &&
-    curl -L "${url}" -o ~/.config/fish/completions/tldr.fish
-
-  # Download/install sd
-  echo "Downloading and installing 'sd'"
-  local url="$(~/.local/bin/ghlast chmln sd --output assets | grep 'x86.*musl')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz --strip-components=1 &&
-      mv sd ~/.local/bin
-  )
-  rm -fr "${tmp}"
-
-  # Download/install lsd
-  echo "Downloading and installing 'lsd'"
-  local url="$(~/.local/bin/ghlast lsd-rs lsd --output assets | grep 'x86.*gnu.*gz$')"
-  local tmp="$(mktemp -d)"
-  (
-    cd "${tmp}" &&
-      curl -L "${url}" | tar xz --strip-components=1 &&
-      mv lsd ~/.local/bin
-  )
-  rm -fr "${tmp}"
-
-  # Download/install jira-cli
+  # Download/install jira-cli (not in standard repos)
   echo "Downloading and installing 'jira-cli'"
   local url="$(~/.local/bin/ghlast ankitpokhrel jira-cli --output assets | grep 'linux_x86_64')"
   local tmp="$(mktemp -d)"
@@ -237,6 +139,125 @@ function installTools() {
       mv bin/jira ~/.local/bin
   )
   rm -fr "${tmp}"
+
+  if [[ "$PKG_MANAGER" == "pacman" ]]; then
+    # Install tools via pacman on Arch/CachyOS
+    echo "Installing tools via pacman..."
+    sudo pacman -S --noconfirm --needed \
+      starship ripgrep git-delta xh fzf fd bat tealdeer sd lsd
+  else
+    # Download tools from GitHub on Ubuntu/Pop_OS
+    # Download/install starship
+    echo "Downloading and installing 'starship'"
+    local url="$(~/.local/bin/ghlast starship starship --output assets | grep 'x86.*musl.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz &&
+        mv starship ~/.local/bin
+    )
+    rm -fr "${tmp}"
+
+    # Download/install ripgrep
+    echo "Downloading and installing 'ripgrep'"
+    local url="$(~/.local/bin/ghlast BurntSushi ripgrep --output assets | grep 'x86.*musl.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz --strip-components=1 &&
+        mv rg ~/.local/bin
+    )
+    rm -fr "${tmp}"
+
+    # Download/install delta
+    echo "Downloading and installing 'delta'"
+    local url="$(~/.local/bin/ghlast dandavison delta --output assets | grep 'x86.*musl.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz --strip-components=1 &&
+        mv delta ~/.local/bin
+    )
+    rm -fr "${tmp}"
+
+    # Download/install xh
+    echo "Downloading and installing 'xh'"
+    local url="$(~/.local/bin/ghlast ducaale xh --output assets | grep 'x86.*musl.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz --strip-components=1 &&
+        mv xh ~/.local/bin &&
+        rm -f ~/.local/bin/xhs &&
+        ln -s ~/.local/bin/xh ~/.local/bin/xhs
+    )
+    rm -fr "${tmp}"
+
+    # Download/install fzf
+    echo "Downloading and installing 'fzf'"
+    local url="$(~/.local/bin/ghlast junegunn fzf --output assets | grep 'linux_amd64')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz &&
+        mv fzf ~/.local/bin
+    )
+    rm -fr "${tmp}"
+
+    # Download/install fd
+    echo "Downloading and installing 'fd'"
+    local url="$(~/.local/bin/ghlast sharkdp fd --output assets | grep 'x86.*gnu.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz --strip-components=1 &&
+        mv fd ~/.local/bin
+    )
+    rm -fr "${tmp}"
+
+    # Download/install bat
+    echo "Downloading and installing 'bat'"
+    local url="$(~/.local/bin/ghlast sharkdp bat --output assets | grep 'x86.*gnu.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz --strip-components=1 &&
+        mv bat ~/.local/bin
+    )
+    rm -fr "${tmp}"
+
+    # Download/install tldr
+    echo "Downloading and installing 'tldr'"
+    local url="$(~/.local/bin/ghlast dbrgn tealdeer --output assets | grep 'x86.*musl$')"
+    curl -L "${url}" -o ~/.local/bin/tldr &&
+      chmod 755 ~/.local/bin/tldr
+    ~/.local/bin/tldr --update || true
+    local url="$(~/.local/bin/ghlast dbrgn tealdeer --output assets | grep 'completions_fish')"
+    mkdir -p ~/.config/fish/completions &&
+      curl -L "${url}" -o ~/.config/fish/completions/tldr.fish
+
+    # Download/install sd
+    echo "Downloading and installing 'sd'"
+    local url="$(~/.local/bin/ghlast chmln sd --output assets | grep 'x86.*musl')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz --strip-components=1 &&
+        mv sd ~/.local/bin
+    )
+    rm -fr "${tmp}"
+
+    # Download/install lsd
+    echo "Downloading and installing 'lsd'"
+    local url="$(~/.local/bin/ghlast lsd-rs lsd --output assets | grep 'x86.*gnu.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz --strip-components=1 &&
+        mv lsd ~/.local/bin
+    )
+    rm -fr "${tmp}"
+  fi
 }
 
 function installGhlast() {
@@ -255,11 +276,15 @@ function installGhlast() {
 
 function installMise() {
   echo "Installing mise..."
-  local url="$(~/.local/bin/ghlast jdx mise --output assets | grep 'linux-x64$')"
-  curl -L "${url}" -o ~/.local/bin/mise &&
-    chmod 755 ~/.local/bin/mise
-
-  source <(~/.local/bin/mise activate bash)
+  if [[ "$PKG_MANAGER" == "pacman" ]]; then
+    sudo pacman -S --noconfirm --needed mise
+    source <(mise activate bash)
+  else
+    local url="$(~/.local/bin/ghlast jdx mise --output assets | grep 'linux-x64$')"
+    curl -L "${url}" -o ~/.local/bin/mise &&
+      chmod 755 ~/.local/bin/mise
+    source <(~/.local/bin/mise activate bash)
+  fi
 }
 
 function installRuby() {
