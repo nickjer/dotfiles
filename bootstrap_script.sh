@@ -14,7 +14,10 @@ else
   exit 1
 fi
 
-if [[ "$PKG_MANAGER" == "apt" ]]; then
+if [[ "$PKG_MANAGER" == "pacman" ]]; then
+  # Install base-devel for compiling (e.g., Ruby via mise)
+  sudo pacman -S --noconfirm --needed base-devel
+elif [[ "$PKG_MANAGER" == "apt" ]]; then
   # Install fish if missing (Ubuntu/Pop_OS)
   if ! command -v fish &>/dev/null; then
     sudo apt-add-repository ppa:fish-shell/release-4
