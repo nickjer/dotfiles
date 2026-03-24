@@ -37,6 +37,11 @@ set -x DISABLE_PRY_RAILS 1
 # Set BP app root
 set -x BP_APP_ROOT $HOME/Development
 
+# Set GitHub Packages token (only in interactive sessions, skip if already set)
+if status is-interactive; and test -z "$PKG_GITHUB_COM_TOKEN"; and command -v gh &>/dev/null
+    set -gx PKG_GITHUB_COM_TOKEN (gh auth token)
+end
+
 # Set Bundler GitHub token (only in interactive sessions, skip if already set)
 if status is-interactive; and test -z "$BUNDLE_RUBYGEMS__PKG__GITHUB__COM"; and command -v gh &>/dev/null
     set -gx BUNDLE_RUBYGEMS__PKG__GITHUB__COM "nickjer:"(gh auth token)
