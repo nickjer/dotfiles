@@ -37,14 +37,9 @@ set -x DISABLE_PRY_RAILS 1
 # Set BP app root
 set -x BP_APP_ROOT $HOME/Development
 
-# Set GitHub token
-if test -z "$PKG_GITHUB_COM_TOKEN"
-    set -x PKG_GITHUB_COM_TOKEN ""
-end
-
-# Set Bundler GitHub token
-if command -v gh &>/dev/null
-    set -x BUNDLE_RUBYGEMS__PKG__GITHUB__COM "nickjer:"(gh auth token)
+# Set Bundler GitHub token (only in interactive sessions, skip if already set)
+if status is-interactive; and test -z "$BUNDLE_RUBYGEMS__PKG__GITHUB__COM"; and command -v gh &>/dev/null
+    set -gx BUNDLE_RUBYGEMS__PKG__GITHUB__COM "nickjer:"(gh auth token)
 end
 
 # Vim keybindings

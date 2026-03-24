@@ -32,32 +32,9 @@ services:
     ports:
       - "127.0.0.1:9200:9200"
       - "127.0.0.1:9600:9600"
-  selenium:
-    image: selenium/standalone-chrome:3.141.59-20210713
-    restart: unless-stopped
-    volumes:
-      - "/dev/shm:/dev/shm"
-    ports:
-      - "127.0.0.1:4444:4444"
-  singularity:
-    image: quay.io/singularity/singularity:v3.8.3
-    privileged: true
-    working_dir: "/data"
-    volumes:
-      - "$PWD:/data"
-      - "$HOME/.singularity:/root/.singularity"
-  abinit:
-    image: jmbeuken/abinit:9.6.2
-    environment:
-      PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/abinit-9.6.2/bin:/opt/libxc-4.3.4/bin
-    working_dir: "/data"
-    volumes:
-      - "$PWD:/data"
 
 volumes:
   db_data:
-    driver: local
-  es_data:
     driver: local
   caddy_data:
     driver: local
