@@ -7,6 +7,8 @@ mkdir -p ~/.local/bin
 # Detect package manager
 if command -v pacman &>/dev/null; then
   PKG_MANAGER="pacman"
+elif command -v dnf &>/dev/null; then
+  PKG_MANAGER="dnf"
 elif command -v apt &>/dev/null; then
   PKG_MANAGER="apt"
 else
@@ -17,6 +19,34 @@ fi
 if [[ "$PKG_MANAGER" == "pacman" ]]; then
   # Install base-devel for compiling (e.g., Ruby via mise)
   sudo pacman -S --noconfirm --needed base-devel
+elif [[ "$PKG_MANAGER" == "dnf" ]]; then
+  # Install fish if missing
+  if ! command -v fish &>/dev/null; then
+    sudo dnf install -y fish
+  fi
+
+  # Install build dependencies for compiling (e.g., Ruby via mise)
+  sudo dnf install -y \
+    autoconf gcc rust patch make bzip2 \
+    openssl-devel libyaml-devel libffi-devel readline-devel \
+    zlib-ng-compat-devel gdbm-devel ncurses-devel perl-FindBin
+
+  # Install common tools if missing
+  for pkg in curl tar unzip; do
+    if ! command -v "$pkg" &>/dev/null; then
+      sudo dnf install -y "$pkg"
+    fi
+  done
+
+  # Install wl-clipboard for Wayland clipboard support
+  if ! command -v wl-copy &>/dev/null; then
+    sudo dnf install -y wl-clipboard
+  fi
+
+  # Install fuse-libs for AppImage support (FUSE 2 compat)
+  if [[ ! -f "/usr/lib64/libfuse.so.2" ]]; then
+    sudo dnf install -y fuse-libs
+  fi
 elif [[ "$PKG_MANAGER" == "apt" ]]; then
   # Install fish if missing (Ubuntu/Pop_OS)
   if ! command -v fish &>/dev/null; then
@@ -147,7 +177,7 @@ function installTools() {
     # Install tools via pacman on Arch/CachyOS
     echo "Installing tools via pacman..."
     sudo pacman -S --noconfirm --needed \
-      starship ripgrep git-delta xh fzf fd bat tealdeer sd lsd
+      starship ripgrep git-delta xh fzf fd bat tlrc sd lsd
   else
     # Download tools from GitHub on Ubuntu/Pop_OS
     # Download/install starship
@@ -229,15 +259,19 @@ function installTools() {
     )
     rm -fr "${tmp}"
 
-    # Download/install tldr
+    # Download/install tldr (tlrc)
     echo "Downloading and installing 'tldr'"
-    local url="$(~/.local/bin/ghlast dbrgn tealdeer --output assets | grep 'x86.*musl$')"
-    curl -L "${url}" -o ~/.local/bin/tldr &&
-      chmod 755 ~/.local/bin/tldr
+    local url="$(~/.local/bin/ghlast tldr-pages tlrc --output assets | grep 'x86.*musl.*gz$')"
+    local tmp="$(mktemp -d)"
+    (
+      cd "${tmp}" &&
+        curl -L "${url}" | tar xz &&
+        mv tldr ~/.local/bin &&
+        mkdir -p ~/.config/fish/completions &&
+        mv completions/tldr.fish ~/.config/fish/completions/tldr.fish
+    )
+    rm -fr "${tmp}"
     ~/.local/bin/tldr --update || true
-    local url="$(~/.local/bin/ghlast dbrgn tealdeer --output assets | grep 'completions_fish')"
-    mkdir -p ~/.config/fish/completions &&
-      curl -L "${url}" -o ~/.config/fish/completions/tldr.fish
 
     # Download/install sd
     echo "Downloading and installing 'sd'"
