@@ -22,16 +22,6 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:6379:6379"
-  elastic:
-    image: boldpenguin/opensearch:latest
-    restart: unless-stopped
-    environment:
-      discovery.type: single-node
-    volumes:
-      - "es_data:/usr/share/opensearch/data"
-    ports:
-      - "127.0.0.1:9200:9200"
-      - "127.0.0.1:9600:9600"
 
 volumes:
   db_data:
