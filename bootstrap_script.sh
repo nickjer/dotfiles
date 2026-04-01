@@ -151,8 +151,14 @@ elif [[ "$PKG_MANAGER" == "dnf" ]]; then
     fi
   done
 
-  if ! command -v wl-copy &>/dev/null; then
-    sudo dnf install -y wl-clipboard
+  if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+    if ! command -v wl-copy &>/dev/null; then
+      sudo dnf install -y wl-clipboard
+    fi
+  else
+    if ! command -v xsel &>/dev/null; then
+      sudo dnf install -y xsel
+    fi
   fi
 
   if [[ ! -f "/usr/lib64/libfuse.so.2" ]]; then
@@ -170,11 +176,21 @@ elif [[ "$PKG_MANAGER" == "apt" ]]; then
     sudo apt-get install -y fish
   fi
 
-  for cmd in make curl tar openssl bzip2 unzip patch xsel; do
+  for cmd in make curl tar openssl bzip2 unzip patch; do
     if ! command -v "$cmd" &>/dev/null; then
       sudo apt install -y "$cmd"
     fi
   done
+
+  if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+    if ! command -v wl-copy &>/dev/null; then
+      sudo apt install -y wl-clipboard
+    fi
+  else
+    if ! command -v xsel &>/dev/null; then
+      sudo apt install -y xsel
+    fi
+  fi
 
   if ! command -v gcc &>/dev/null; then
     sudo apt install -y build-essential
@@ -284,7 +300,9 @@ else
     chmod +x flameshot.AppImage
     ./flameshot.AppImage --appimage-extract &>/dev/null
     mkdir -p ~/.local/share/applications ~/.local/share/icons
-    cp squashfs-root/org.flameshot.Flameshot.desktop ~/.local/share/applications/
+    sed 's|Exec=flameshot|Exec='"$HOME"'/.local/bin/flameshot|g' \
+      squashfs-root/org.flameshot.Flameshot.desktop \
+      > ~/.local/share/applications/org.flameshot.Flameshot.desktop
     cp -r squashfs-root/usr/share/icons/hicolor ~/.local/share/icons/
     rm -rf "$tmp"
   )
