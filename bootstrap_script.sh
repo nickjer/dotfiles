@@ -291,21 +291,8 @@ gh_install "jira-cli" ankitpokhrel jira-cli 'linux_x86_64'      jira
 if [[ "$PKG_MANAGER" == "pacman" ]]; then
   log_section "Installing tools via pacman"
   sudo pacman -S --noconfirm --needed \
-    starship ripgrep git-delta xh fzf fd bat tlrc sd lsd flameshot
+    starship ripgrep git-delta xh fzf fd bat tlrc sd lsd
 else
-  gh_install "flameshot" flameshot-org flameshot 'x86_64\.AppImage$' flameshot && (
-    tmp="$(mktemp -d)"
-    cd "$tmp"
-    cp ~/.local/bin/flameshot flameshot.AppImage
-    chmod +x flameshot.AppImage
-    ./flameshot.AppImage --appimage-extract &>/dev/null
-    mkdir -p ~/.local/share/applications ~/.local/share/icons
-    sed 's|Exec=flameshot|Exec='"$HOME"'/.local/bin/flameshot|g' \
-      squashfs-root/org.flameshot.Flameshot.desktop \
-      > ~/.local/share/applications/org.flameshot.Flameshot.desktop
-    cp -r squashfs-root/usr/share/icons/hicolor ~/.local/share/icons/
-    rm -rf "$tmp"
-  )
   gh_install "starship" starship   starship 'x86.*musl.*gz$'    starship
   gh_install "ripgrep"  BurntSushi ripgrep  'x86.*musl.*gz$'    rg
   gh_install "delta"    dandavison delta    'x86.*musl.*gz$'    delta
