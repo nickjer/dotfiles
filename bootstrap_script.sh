@@ -160,6 +160,10 @@ elif [[ "$PKG_MANAGER" == "dnf" ]]; then
   fi
 
 elif [[ "$PKG_MANAGER" == "apt" ]]; then
+  if ! command -v add-apt-repository &>/dev/null; then
+    sudo apt-get install -y software-properties-common
+  fi
+
   if ! command -v fish &>/dev/null; then
     sudo apt-add-repository ppa:fish-shell/release-4
     sudo apt-get update
