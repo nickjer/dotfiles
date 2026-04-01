@@ -180,6 +180,11 @@ elif [[ "$PKG_MANAGER" == "apt" ]]; then
     sudo apt install -y build-essential
   fi
 
+  sudo apt install -y \
+    autoconf \
+    libssl-dev libyaml-dev libffi-dev libreadline-dev \
+    zlib1g-dev libgdbm-dev libncurses-dev
+
   if [[ ! -f "/usr/lib/x86_64-linux-gnu/libfuse.so.2" ]]; then
     sudo apt install -y libfuse2t64
   fi
