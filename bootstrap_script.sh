@@ -177,7 +177,7 @@ elif [[ "$PKG_MANAGER" == "apt" ]]; then
   fi
 
   if [[ ! -f "/usr/lib/x86_64-linux-gnu/libfuse.so.2" ]]; then
-    sudo apt install -y libfuse2
+    sudo apt install -y libfuse2t64
   fi
 fi
 
@@ -290,7 +290,7 @@ fi
 log_section "Installing fish plugins"
 
 if fish -c '
-  curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish | source && fisher install jorgebucaran/fisher
   fisher install PatrickF1/fzf.fish
 ' &>/dev/null; then
   log_ok "fisher + fzf.fish"
